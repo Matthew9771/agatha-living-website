@@ -1,0 +1,63 @@
+.story { padding: 110px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; background: var(--bg); }
+.lead { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; line-height: 1.6; margin-bottom: 24px; color: var(--ink); }
+.body { font-size: 15px; color: var(--mid); line-height: 1.9; margin-bottom: 16px; }
+.storyImages { position: relative; }
+.imgMain { width: 100%; aspect-ratio: 3/4; background: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80') center/cover no-repeat; }
+.imgAccent { position: absolute; width: 55%; aspect-ratio: 1; background: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80') center/cover no-repeat; bottom: -40px; right: -40px; border: 8px solid var(--bg); }
+.badge { position: absolute; top: 40px; left: -28px; background: var(--gold); color: var(--ink); padding: 22px 24px; text-align: center; }
+.badgeNum { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; display: block; line-height: 1; }
+.badgeText { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; }
+
+.values { background: #fff; padding: 110px 80px; }
+.valuesGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 60px; }
+.valueCard { background: var(--bg); padding: 48px 36px; border-top: 1px solid var(--border); transition: border-top-color 0.3s, transform 0.3s; }
+.valueCard:hover { border-top-color: var(--gold); transform: translateY(-4px); }
+.valueIcon { font-size: 28px; margin-bottom: 20px; }
+.valueTitle { font-family: 'Cormorant Garamond', serif; font-size: 24px; margin-bottom: 12px; }
+.valueDesc { font-size: 14px; color: var(--mid); line-height: 1.85; }
+
+.cta { background: var(--bg); padding: 110px 80px; }
+.ctaBtns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .story { grid-template-columns: 1fr; gap: 56px; padding: 80px 24px; }
+  .imgAccent { display: none; }
+  .badge { left: 0; }
+  .values { padding: 80px 24px; }
+  .valuesGrid { grid-template-columns: 1fr 1fr; }
+  .cta { padding: 80px 24px; }
+}
+@media (max-width: 600px) {
+  .story {
+    padding: 64px 18px;
+    gap: 40px;
+  }
+
+  .lead,
+  .body {
+    font-size: 14px;
+  }
+
+  .badge {
+    top: 16px;
+    padding: 16px 18px;
+  }
+
+  .badgeNum {
+    font-size: 30px;
+  }
+
+  .values {
+    padding: 64px 18px;
+  }
+
+  .valuesGrid { grid-template-columns: 1fr; }
+
+  .valueCard {
+    padding: 36px 24px;
+  }
+
+  .cta {
+    padding: 64px 18px;
+  }
+}

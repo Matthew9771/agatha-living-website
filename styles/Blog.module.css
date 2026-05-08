@@ -1,0 +1,56 @@
+.section { padding: 110px 80px; background: var(--bg); }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.card { background: #fff; overflow: hidden; transition: transform 0.3s; }
+.card:hover { transform: translateY(-4px); }
+.featured { grid-column: span 3; display: grid; grid-template-columns: 1.4fr 1fr; }
+.cardImgLink { display: block; }
+.cardImg { aspect-ratio: 16/10; background-size: cover; background-position: center; position: relative; transition: transform 0.4s; }
+.card:hover .cardImg { transform: scale(1.03); }
+.featured .cardImg { aspect-ratio: auto; height: 100%; min-height: 380px; }
+.cardCategory { position: absolute; top: 0; left: 0; background: var(--gold); color: var(--ink); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 7px 16px; font-weight: 500; }
+.cardBody { padding: 36px 32px; display: flex; flex-direction: column; gap: 12px; }
+.featured .cardBody { padding: 52px 48px; justify-content: center; }
+.cardDate { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
+.cardTitle { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; line-height: 1.25; }
+.featured .cardTitle { font-size: 34px; }
+.cardTitle a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
+.cardTitle a:hover { color: var(--gold); }
+.cardExcerpt { font-size: 14px; color: var(--mid); line-height: 1.85; }
+.readMore { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; transition: gap 0.2s, color 0.2s; }
+.readMore:hover { gap: 14px; color: var(--gold); }
+
+@media (max-width: 900px) {
+  .section { padding: 80px 24px; }
+  .grid { grid-template-columns: 1fr; }
+  .featured { grid-column: span 1; grid-template-columns: 1fr; }
+  .featured .cardImg { min-height: 240px; }
+  .featured .cardBody { padding: 32px 24px; }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 64px 18px;
+  }
+
+  .grid {
+    gap: 24px;
+  }
+
+  .cardBody,
+  .featured .cardBody {
+    padding: 28px 18px;
+  }
+
+  .cardTitle {
+    font-size: 22px;
+  }
+
+  .featured .cardTitle {
+    font-size: 28px;
+  }
+
+  .cardExcerpt {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+}

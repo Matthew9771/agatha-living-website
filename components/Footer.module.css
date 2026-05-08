@@ -1,0 +1,48 @@
+.footer {
+  background: #100F0D; color: rgba(255,255,255,0.4);
+  padding: 72px 80px 40px;
+}
+.top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-wrap: wrap; gap: 48px;
+}
+.brand { max-width: 260px; }
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 400; letter-spacing: 0.1em;
+  color: #fff; text-decoration: none; display: block; margin-bottom: 16px;
+}
+.logo span { color: var(--gold); font-style: italic; }
+.brand p { font-size: 13px; line-height: 1.9; }
+
+.col h5 {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.2); margin-bottom: 20px;
+}
+.col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.col a {
+  font-size: 13px; color: rgba(255,255,255,0.45);
+  text-decoration: none; transition: color 0.2s;
+}
+.col a:hover { color: var(--gold); }
+
+.bottom {
+  padding-top: 32px; display: flex; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px; font-size: 11px; letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .footer { padding: 56px 24px 32px; }
+  .top { flex-direction: column; gap: 36px; }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 48px 18px 28px;
+  }
+
+  .bottom {
+    font-size: 10px;
+  }
+}

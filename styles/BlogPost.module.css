@@ -1,0 +1,15 @@
+.article { max-width: 760px; margin: 0 auto; padding: 80px 40px; }
+.meta { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
+.date, .cat { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.sep { color: var(--gold); }
+.body { font-size: 16px; color: #3a3835; line-height: 1.95; }
+.body p { margin-bottom: 24px; }
+.body h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; margin: 40px 0 16px; color: var(--ink); }
+.back { margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--border); }
+
+.cta { background: var(--bg); padding: 100px 80px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+@media (max-width: 768px) {
+  .article { padding: 60px 24px; }
+  .cta { padding: 80px 24px; }
+}
