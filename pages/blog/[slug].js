@@ -57,8 +57,8 @@ export default function BlogPost() {
     <>
       <Head><title>{post.title} | Agatha Living Blog</title></Head>
 
-      <div className="page-hero">
-        <div className="page-hero-bg" style={{backgroundImage:`url('${post.image}')`}} />
+      <div className="page-hero page-hero-article">
+        <div className="page-hero-bg" />
         <div className="page-hero-overlay" />
         <div className="page-hero-content">
           <span className="section-tag">{post.category}</span>
