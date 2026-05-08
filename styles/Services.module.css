@@ -2,7 +2,46 @@
 .serviceRow { display: grid; grid-template-columns: 1fr 1fr; background: #fff; }
 .reversed { direction: rtl; }
 .reversed > * { direction: ltr; }
-.serviceImg { min-height: 560px; background-size: cover; background-position: center; }
+.serviceImg {
+  min-height: 560px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, #191612 0%, #12100d 54%, #0d0c0a 100%);
+}
+.serviceImg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 100%),
+    linear-gradient(180deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 100%);
+  background-size: 96px 96px;
+  opacity: 0.12;
+}
+.serviceImg::after {
+  content: '';
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.serviceImg1 {
+  background:
+    radial-gradient(circle at 20% 24%, rgba(201,169,110,0.2) 0%, rgba(201,169,110,0.06) 18%, rgba(201,169,110,0) 42%),
+    linear-gradient(145deg, #191612 0%, #12100d 54%, #0d0c0a 100%);
+}
+.serviceImg2 {
+  background:
+    radial-gradient(circle at 72% 22%, rgba(107,127,110,0.16) 0%, rgba(107,127,110,0.05) 18%, rgba(107,127,110,0) 38%),
+    radial-gradient(circle at 18% 74%, rgba(201,169,110,0.14) 0%, rgba(201,169,110,0.04) 14%, rgba(201,169,110,0) 32%),
+    linear-gradient(145deg, #171511 0%, #11100d 54%, #0d0b09 100%);
+}
+.serviceImg3 {
+  background:
+    radial-gradient(circle at 26% 20%, rgba(201,169,110,0.16) 0%, rgba(201,169,110,0.05) 18%, rgba(201,169,110,0) 40%),
+    radial-gradient(circle at 76% 72%, rgba(107,127,110,0.14) 0%, rgba(107,127,110,0.05) 14%, rgba(107,127,110,0) 30%),
+    linear-gradient(145deg, #181612 0%, #12100d 54%, #0c0b09 100%);
+}
 .serviceContent { padding: 80px 72px; display: flex; flex-direction: column; justify-content: center; }
 .serviceNum { font-family: 'Cormorant Garamond', serif; font-size: 11px; color: var(--gold); letter-spacing: 0.28em; margin-bottom: 16px; display: block; }
 .serviceIcon { font-size: 32px; margin-bottom: 16px; }

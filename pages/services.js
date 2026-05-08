@@ -57,8 +57,10 @@ export default function Services() {
 
       {services.map((s, idx) => (
         <section key={s.num} className={`${styles.serviceRow} ${idx % 2 === 1 ? styles.reversed : ''}`}>
-          <div ref={addRef} className={`${styles.serviceImg} fade-up`}
-            style={{backgroundImage: `url('https://images.unsplash.com/photo-${idx === 0 ? '1560448204-e02f11c3d0e2' : idx === 1 ? '1522708323590-d24dbb6b0267' : '1600585154340-be6161a56a0c'}?w=700&q=80')`}} />
+          <div
+            ref={addRef}
+            className={`${styles.serviceImg} ${styles[`serviceImg${idx + 1}`]} fade-up`}
+          />
           <div ref={addRef} className={`${styles.serviceContent} fade-up`}>
             <span className={styles.serviceNum}>{s.num}</span>
             <div className={styles.serviceIcon}>{s.icon}</div>

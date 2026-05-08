@@ -4,7 +4,46 @@
 .card:hover { transform: translateY(-4px); }
 .featured { grid-column: span 3; display: grid; grid-template-columns: 1.4fr 1fr; }
 .cardImgLink { display: block; }
-.cardImg { aspect-ratio: 16/10; background-size: cover; background-position: center; position: relative; transition: transform 0.4s; }
+.cardImg {
+  aspect-ratio: 16/10;
+  position: relative;
+  transition: transform 0.4s;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, #181612 0%, #11100d 54%, #0d0c0a 100%);
+}
+.cardImg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 100%),
+    linear-gradient(180deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 100%);
+  background-size: 90px 90px;
+  opacity: 0.1;
+}
+.cardImg::after {
+  content: '';
+  position: absolute;
+  inset: 14%;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.cardImg1 {
+  background:
+    radial-gradient(circle at 20% 24%, rgba(201,169,110,0.2) 0%, rgba(201,169,110,0.06) 18%, rgba(201,169,110,0) 40%),
+    linear-gradient(145deg, #181612 0%, #11100d 54%, #0d0c0a 100%);
+}
+.cardImg2 {
+  background:
+    radial-gradient(circle at 76% 24%, rgba(107,127,110,0.18) 0%, rgba(107,127,110,0.06) 18%, rgba(107,127,110,0) 38%),
+    linear-gradient(145deg, #171511 0%, #11100d 54%, #0d0b09 100%);
+}
+.cardImg3 {
+  background:
+    radial-gradient(circle at 24% 72%, rgba(201,169,110,0.16) 0%, rgba(201,169,110,0.05) 16%, rgba(201,169,110,0) 36%),
+    radial-gradient(circle at 78% 20%, rgba(107,127,110,0.14) 0%, rgba(107,127,110,0.04) 14%, rgba(107,127,110,0) 32%),
+    linear-gradient(145deg, #181612 0%, #12100d 54%, #0d0c0a 100%);
+}
 .card:hover .cardImg { transform: scale(1.03); }
 .featured .cardImg { aspect-ratio: auto; height: 100%; min-height: 380px; }
 .cardCategory { position: absolute; top: 0; left: 0; background: var(--gold); color: var(--ink); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 7px 16px; font-weight: 500; }

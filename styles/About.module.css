@@ -2,8 +2,47 @@
 .lead { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; line-height: 1.6; margin-bottom: 24px; color: var(--ink); }
 .body { font-size: 15px; color: var(--mid); line-height: 1.9; margin-bottom: 16px; }
 .storyImages { position: relative; }
-.imgMain { width: 100%; aspect-ratio: 3/4; background: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80') center/cover no-repeat; }
-.imgAccent { position: absolute; width: 55%; aspect-ratio: 1; background: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80') center/cover no-repeat; bottom: -40px; right: -40px; border: 8px solid var(--bg); }
+.imgMain {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background:
+    radial-gradient(circle at 22% 24%, rgba(201,169,110,0.18) 0%, rgba(201,169,110,0.05) 18%, rgba(201,169,110,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01)),
+    linear-gradient(145deg, #191612 0%, #12100d 52%, #0d0c0a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.imgMain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.045) 0, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 100%),
+    linear-gradient(180deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 100%);
+  background-size: 88px 88px;
+  opacity: 0.12;
+}
+.imgMain::after {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 12%;
+  top: 18%;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.imgAccent {
+  position: absolute;
+  width: 55%;
+  aspect-ratio: 1;
+  bottom: -40px;
+  right: -40px;
+  border: 8px solid var(--bg);
+  background:
+    radial-gradient(circle at 26% 24%, rgba(201,169,110,0.2) 0%, rgba(201,169,110,0.06) 18%, rgba(201,169,110,0) 44%),
+    linear-gradient(145deg, #1a1713 0%, #13110e 48%, #0e0d0b 100%);
+}
 .badge { position: absolute; top: 40px; left: -28px; background: var(--gold); color: var(--ink); padding: 22px 24px; text-align: center; }
 .badgeNum { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; display: block; line-height: 1; }
 .badgeText { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; }

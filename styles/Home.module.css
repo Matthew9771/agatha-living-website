@@ -54,12 +54,18 @@
 .serviceLink:hover { gap: 18px; color: var(--gold); }
 
 /* PROPERTY */
-.propertySection { background: url('https://images.unsplash.com/photo-1615571022219-eb45cf7faa9d?w=1400&q=80') center/cover fixed; position: relative; padding: 110px 80px; }
+.propertySection {
+  background:
+    radial-gradient(circle at 16% 24%, rgba(201,169,110,0.12) 0%, rgba(201,169,110,0.04) 16%, rgba(201,169,110,0) 34%),
+    linear-gradient(135deg, #151310 0%, #100f0d 44%, #0b0a08 100%);
+  position: relative;
+  padding: 110px 80px;
+}
 .propertySection::before { content: ''; position: absolute; inset: 0; background: rgba(10,9,8,0.82); }
 .propertySection > * { position: relative; z-index: 1; }
 .propHeader { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 20px; }
 .propCard { display: grid; grid-template-columns: 1.1fr 1fr; max-width: 960px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-.propImg { background: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&q=80') center/cover no-repeat; min-height: 420px; position: relative; }
+.propImg { background: url('/foresthill.jpg') center/cover no-repeat; min-height: 420px; position: relative; }
 .propTag { position: absolute; top: 0; left: 0; background: var(--gold); color: var(--ink); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 8px 18px; font-weight: 500; }
 .propInfo { background: rgba(255,255,255,0.04); backdrop-filter: blur(8px); padding: 52px 44px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid rgba(255,255,255,0.08); }
 .propInfo h3 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: #fff; margin-bottom: 8px; }

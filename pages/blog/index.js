@@ -12,7 +12,6 @@ export const posts = [
     excerpt: 'Hotels are expensive and inflexible. Serviced apartments offer more space, more comfort, and better value — here is why travellers are making the switch.',
     date: 'March 2026',
     category: 'Accommodation',
-    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=700&q=80',
   },
   {
     slug: 'investing-in-se23',
@@ -20,7 +19,6 @@ export const posts = [
     excerpt: 'Good transport links, a strong community, and rising property values make Forest Hill an area savvy investors are watching closely.',
     date: 'February 2026',
     category: 'Real Estate',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80',
   },
   {
     slug: 'property-management-tips',
@@ -28,7 +26,6 @@ export const posts = [
     excerpt: 'Small details make a huge difference to guest satisfaction. Here are the five things we do at every Agatha Living property to consistently earn five stars.',
     date: 'January 2026',
     category: 'Property Tips',
-    image: 'https://images.unsplash.com/photo-1616137466211-f939a420be84?w=700&q=80',
   },
 ];
 
@@ -71,7 +68,7 @@ export default function Blog() {
           {posts.map((post, i) => (
             <article key={post.slug} ref={addRef} className={`${styles.card} ${i === 0 ? styles.featured : ''} fade-up`}>
               <Link href={`/blog/${post.slug}`} className={styles.cardImgLink}>
-                <div className={styles.cardImg} style={{backgroundImage:`url('${post.image}')`}}>
+                <div className={`${styles.cardImg} ${styles[`cardImg${i + 1}`]}`}>
                   <span className={styles.cardCategory}>{post.category}</span>
                 </div>
               </Link>
