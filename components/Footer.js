@@ -36,7 +36,11 @@ export default function Footer() {
       </div>
       <div className={styles.bottom}>
         <p>© {new Date().getFullYear()} Agatha Living. All rights reserved.</p>
-        <p>Privacy Policy · Terms of Service</p>
+        <p className={styles.legalLinks}>
+          <Link href="/privacy-policy">Privacy Policy</Link>
+          <span>·</span>
+          <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
+        </p>
       </div>
     </footer>
   );

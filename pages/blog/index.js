@@ -23,7 +23,7 @@ export const posts = [
   {
     slug: 'property-management-tips',
     title: '5 Things Every Airbnb Host Should Do to Maximise Their Rating',
-    excerpt: 'Small details make a huge difference to guest satisfaction. Here are the five things we do at every Agatha Living property to consistently earn five stars.',
+    excerpt: 'Small details make a huge difference to guest satisfaction. Here are five simple touches that help a stay feel more polished, comfortable, and memorable.',
     date: 'January 2026',
     category: 'Property Tips',
   },
@@ -32,13 +32,26 @@ export const posts = [
 export default function Blog() {
   const fadeRefs = useRef([]);
   useEffect(() => {
+    const revealAll = () => {
+      fadeRefs.current.forEach(el => el && el.classList.add('visible'));
+    };
+
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
+      revealAll();
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       entries => entries.forEach((e, i) => {
         if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 120);
       }), { threshold: 0.1 }
     );
     fadeRefs.current.forEach(el => el && observer.observe(el));
-    return () => observer.disconnect();
+    const fallbackTimer = window.setTimeout(revealAll, 900);
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
   const addRef = el => { if (el && !fadeRefs.current.includes(el)) fadeRefs.current.push(el); };
 
@@ -60,7 +73,7 @@ export default function Blog() {
           <span className="section-tag">Latest Articles</span>
           <h2 className="section-title">Property insights,<br /><em>tips & news</em></h2>
           <p className="section-sub" style={{marginBottom:'64px'}}>
-            Advice on serviced accommodation, real estate investment, and property management from the Agatha Living team.
+            Advice on serviced accommodation, real estate investment, and property management, with a focus on better stays and better property experiences.
           </p>
         </div>
 

@@ -6,11 +6,29 @@ import styles from './Navbar.module.css';
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    let lastScrollY = window.scrollY;
+
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 60);
+
+      if (currentScrollY <= 24) {
+        setNavVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        setNavVisible(false);
+      } else {
+        setNavVisible(true);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
     window.addEventListener('scroll', onScroll);
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -23,6 +41,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!menuOpen) return undefined;
+    setNavVisible(true);
 
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -71,7 +90,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
+      <nav data-navbar className={`${styles.nav} ${scrolled ? styles.scrolled : ''} ${navVisible || menuOpen ? styles.visible : styles.hidden}`}>
         <Link href="/" className={styles.logo}>
           Agatha <span>Living</span>
         </Link>

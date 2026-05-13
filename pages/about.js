@@ -6,13 +6,26 @@ import styles from '../styles/About.module.css';
 export default function About() {
   const fadeRefs = useRef([]);
   useEffect(() => {
+    const revealAll = () => {
+      fadeRefs.current.forEach(el => el && el.classList.add('visible'));
+    };
+
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
+      revealAll();
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       entries => entries.forEach((e, i) => {
         if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 120);
       }), { threshold: 0.1 }
     );
     fadeRefs.current.forEach(el => el && observer.observe(el));
-    return () => observer.disconnect();
+    const fallbackTimer = window.setTimeout(revealAll, 900);
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
   const addRef = el => { if (el && !fadeRefs.current.includes(el)) fadeRefs.current.push(el); };
 
@@ -25,7 +38,7 @@ export default function About() {
         <div className="page-hero-bg" />
         <div className="page-hero-overlay" />
         <div className="page-hero-content">
-          <span className="section-tag">Our Story</span>
+          <span className="section-tag">The Agatha Living Approach</span>
           <h1>Built on care,<br /><em>driven by quality</em></h1>
         </div>
       </div>
@@ -33,11 +46,11 @@ export default function About() {
       {/* STORY */}
       <section className={styles.story}>
         <div ref={addRef} className={`${styles.storyText} fade-up`}>
-          <span className="section-tag">Who We Are</span>
+          <span className="section-tag">Designed Around the Stay</span>
           <h2 className="section-title">About <em>Agatha Living</em></h2>
-          <p className={styles.lead}>Agatha Living was founded on a simple belief: that every guest deserves a home away from home, and every property owner deserves a partner they can truly trust.</p>
-          <p className={styles.body}>We started with a single property on Airbnb and a commitment to excellence. Every detail — from the quality of the linen to the speed of our guest communications — was carefully considered. That commitment earned us five-star reviews and the confidence to grow.</p>
-          <p className={styles.body}>Today we are expanding into real estate, bringing the same care and precision to helping clients buy, sell, and invest in property across London.</p>
+          <p className={styles.lead}>Agatha Living is built around calm, well-prepared stays and thoughtful property experiences from the moment a visit begins.</p>
+          <p className={styles.body}>Every detail is shaped around comfort, presentation, and fast, helpful communication, so each stay feels polished, easy, and welcoming.</p>
+          <p className={styles.body}>That same level of care carries through every part of the brand, from short stays to property services across London.</p>
         </div>
         <div ref={addRef} className={`${styles.storyImages} fade-up`}>
           <div className={styles.imgMain} />
@@ -52,15 +65,15 @@ export default function About() {
       {/* VALUES */}
       <section className={styles.values}>
         <div ref={addRef} className="fade-up">
-          <span className="section-tag">Our Values</span>
-          <h2 className="section-title">What we <em>stand for</em></h2>
+          <span className="section-tag">What Matters Most</span>
+          <h2 className="section-title">What every stay should <em>feel like</em></h2>
         </div>
         <div className={styles.valuesGrid}>
           {[
-            { icon: '🏡', title: 'Quality First', desc: 'Every property we manage is held to hotel standards. We never compromise on cleanliness, presentation, or comfort.' },
-            { icon: '🤝', title: 'Trust & Transparency', desc: 'No hidden fees, no surprises. We give property owners full visibility and regular performance reports.' },
-            { icon: '⚡', title: 'Responsive Service', desc: 'Guests and owners alike get fast, attentive support. We are always available when it matters most.' },
-            { icon: '📈', title: 'Growth Focused', desc: 'We actively manage pricing and occupancy to maximise returns for our property owners.' },
+            { icon: '🏡', title: 'Quality First', desc: 'Every stay is prepared to hotel standards, with a strong focus on cleanliness, presentation, and comfort.' },
+            { icon: '🤝', title: 'Clear & Reassuring', desc: 'Straightforward information, thoughtful details, and no surprises before or during the stay.' },
+            { icon: '⚡', title: 'Responsive Service', desc: 'Questions, arrival details, and stay support are handled quickly when they matter most.' },
+            { icon: '✨', title: 'Calm by Design', desc: 'Spaces are styled to feel settled, polished, and easy to relax into from the moment of arrival.' },
           ].map(v => (
             <div key={v.title} ref={addRef} className={`${styles.valueCard} fade-up`}>
               <div className={styles.valueIcon}>{v.icon}</div>
@@ -74,12 +87,12 @@ export default function About() {
       {/* CTA */}
       <section className={styles.cta}>
         <div ref={addRef} className="fade-up">
-          <span className="section-tag">Work With Us</span>
-          <h2 className="section-title">Ready to get <em>started?</em></h2>
-          <p className="section-sub" style={{marginBottom:'40px'}}>Whether you're looking to stay, invest, or have your property managed, we'd love to hear from you.</p>
+          <span className="section-tag">Plan the Next Step</span>
+          <h2 className="section-title">Ready to explore your <em>next stay?</em></h2>
+          <p className="section-sub" style={{marginBottom:'40px'}}>Browse the current stay, ask a question, or explore the service that fits best.</p>
           <div className={styles.ctaBtns}>
             <Link href="/contact" className="btn-gold">Get in Touch</Link>
-            <Link href="/services" className="btn-outline-dark">Our Services</Link>
+            <Link href="/services" className="btn-outline-dark">View Services</Link>
           </div>
         </div>
       </section>

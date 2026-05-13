@@ -7,13 +7,26 @@ export default function Contact() {
   const fadeRefs = useRef([]);
 
   useEffect(() => {
+    const revealAll = () => {
+      fadeRefs.current.forEach(el => el && el.classList.add('visible'));
+    };
+
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
+      revealAll();
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       entries => entries.forEach((e, i) => {
         if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 120);
       }), { threshold: 0.1 }
     );
     fadeRefs.current.forEach(el => el && observer.observe(el));
-    return () => observer.disconnect();
+    const fallbackTimer = window.setTimeout(revealAll, 900);
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
   const addRef = el => { if (el && !fadeRefs.current.includes(el)) fadeRefs.current.push(el); };
 
@@ -53,8 +66,8 @@ export default function Contact() {
           {/* Contact info */}
           <div ref={addRef} className={`${styles.info} fade-up`}>
             <span className="section-tag">Contact Details</span>
-            <h2 className="section-title">We'd love to <em>hear from you</em></h2>
-            <p className="section-sub" style={{marginBottom:'48px'}}>Whether you're looking to book a stay, discuss property management, or explore real estate — get in touch and we'll get back to you promptly.</p>
+          <h2 className="section-title">Here to help with <em>your plans</em></h2>
+            <p className="section-sub" style={{marginBottom:'48px'}}>Whether the enquiry is about a stay, hosting support, or property guidance, a reply will be sent promptly.</p>
 
             <div className={styles.details}>
               {[
@@ -89,7 +102,7 @@ export default function Contact() {
               <div className={styles.successMsg}>
                 <span className={styles.successIcon}>✓</span>
                 <h3>Message received!</h3>
-                <p>Thank you for getting in touch. We'll get back to you within 24 hours.</p>
+                <p>Thank you for getting in touch. A reply will be sent within 24 hours.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className={styles.form}>

@@ -1,0 +1,209 @@
+.section {
+  padding: 96px 80px 120px;
+  background: var(--bg);
+}
+
+.card {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 52px 48px;
+  border-radius: 32px;
+  background: rgba(255,255,255,0.84);
+  border: 1px solid rgba(16,17,20,0.06);
+  box-shadow: 0 28px 80px rgba(44,33,20,0.08);
+}
+
+.updated {
+  font-size: 13px;
+  color: var(--mid);
+  margin-bottom: 28px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-top: 14px;
+}
+
+.content p,
+.content li {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--mid);
+}
+
+.content ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+
+.title {
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+
+.copy {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--mid);
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.metaGrid div {
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(16,17,20,0.06);
+}
+
+.metaGrid strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(24,22,19,0.5);
+}
+
+.metaGrid p {
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.enquiryForm {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formGroup label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(24,22,19,0.55);
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  border: 1px solid rgba(16,17,20,0.08);
+  border-radius: 18px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.92);
+  color: var(--ink);
+  font: inherit;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.formError {
+  font-size: 14px;
+  color: #8b3a2e;
+}
+
+.successState {
+  margin-top: 32px;
+  padding: 26px 24px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(16,17,20,0.06);
+}
+
+.successState h3 {
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.successState p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--mid);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 72px 24px 96px;
+  }
+
+  .card {
+    padding: 40px 28px;
+  }
+
+  .metaGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 56px 18px 80px;
+  }
+
+  .card {
+    padding: 30px 20px;
+    border-radius: 24px;
+  }
+
+  .content h2 {
+    font-size: 22px;
+  }
+
+  .content p,
+  .content li,
+  .updated {
+    font-size: 15px;
+  }
+}

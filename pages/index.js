@@ -7,13 +7,26 @@ export default function Home() {
   const fadeRefs = useRef([]);
 
   useEffect(() => {
+    const revealAll = () => {
+      fadeRefs.current.forEach(el => el && el.classList.add('visible'));
+    };
+
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
+      revealAll();
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       entries => entries.forEach((e, i) => {
         if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 120);
       }), { threshold: 0.1 }
     );
     fadeRefs.current.forEach(el => el && observer.observe(el));
-    return () => observer.disconnect();
+    const fallbackTimer = window.setTimeout(revealAll, 900);
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
 
   const addRef = el => { if (el && !fadeRefs.current.includes(el)) fadeRefs.current.push(el); };
@@ -32,16 +45,12 @@ export default function Home() {
             Spaces designed<br />for <em>modern living</em>
           </h1>
           <p className={styles.heroSub}>
-            Premium serviced accommodation and expert real estate services — whether you're looking for a short stay or your next investment property.
+            Premium serviced accommodation in London for short stays, longer visits, and calm, flexible city living.
           </p>
           <div className={styles.heroBtns}>
             <Link href="/properties" className="btn-gold">View Properties</Link>
             <Link href="/contact" className="btn-outline-white">Get in Touch</Link>
           </div>
-        </div>
-        <div className={styles.heroScroll}>
-          <div className={styles.scrollLine} />
-          <span>Scroll</span>
         </div>
       </section>
 
@@ -59,16 +68,16 @@ export default function Home() {
       <section className={styles.services}>
         <div className={styles.servicesIntro}>
           <div ref={addRef} className="fade-up">
-            <span className="section-tag">What We Offer</span>
+            <span className="section-tag">Explore Stays & Services</span>
             <h2 className="section-title">A complete<br />living <em>solution</em></h2>
           </div>
-          <p ref={addRef} className={`section-sub fade-up`}>From short-term stays to long-term investment, Agatha Living handles every detail.</p>
+          <p ref={addRef} className={`section-sub fade-up`}>Explore short stays, hosting support, and property guidance designed around comfort, clarity, and convenience.</p>
         </div>
         <div className={styles.servicesGrid}>
           {[
-            { num: '01', title: 'Short-Term Stays', desc: 'Fully furnished, hotel-quality apartments on Airbnb and direct booking. Perfect for business travellers, relocations, and leisure stays.', link: '/services' },
-            { num: '02', title: 'Property Management', desc: 'We handle everything — guest communications, cleaning, maintenance, and pricing optimisation — so you earn more with zero hassle.', link: '/services' },
-            { num: '03', title: 'Real Estate', desc: 'Expert guidance for buyers, sellers, and investors. We source high-yield properties and support you end-to-end.', link: '/services' },
+            { num: '01', title: 'Short-Term Stays', desc: 'Fully furnished, hotel-quality apartments available for business travel, relocations, and easy leisure stays.', link: '/services' },
+            { num: '02', title: 'Property Management', desc: 'A hands-off hosting service for owners who want guest messaging, cleaning, maintenance, and pricing handled smoothly.', link: '/services' },
+            { num: '03', title: 'Real Estate', desc: 'Thoughtful property guidance for buyers, sellers, and investors looking for well-presented opportunities across London.', link: '/services' },
           ].map(s => (
             <div key={s.num} ref={addRef} className={`${styles.serviceCard} fade-up`}>
               <span className={styles.serviceNum}>{s.num}</span>
@@ -84,7 +93,7 @@ export default function Home() {
       <section className={styles.propertySection}>
         <div className={styles.propHeader} ref={addRef}>
           <div className="fade-up">
-            <span className="section-tag">Our Property</span>
+            <span className="section-tag">Featured Stay</span>
             <h2 className="section-title" style={{color:'#fff'}}>Currently <em style={{color:'var(--gold)'}}>available</em></h2>
           </div>
           <Link href="/properties" className="btn-outline-white">View All</Link>
@@ -104,7 +113,7 @@ export default function Home() {
                 <div className={styles.propFeature}><span>📅</span> Flexible Short-Term Bookings</div>
               </div>
               <hr className={styles.propDivider} />
-              <Link href="/contact" className="btn-gold">Book / Enquire</Link>
+            <Link href="/contact" className="btn-gold">Check availability</Link>
             </div>
           </div>
         </div>
@@ -126,7 +135,7 @@ export default function Home() {
           <h2 className="section-title">Let's find your<br /><em>perfect space</em></h2>
           <div className={styles.ctaBtns}>
             <Link href="/contact" className="btn-gold">Enquire Now</Link>
-            <Link href="/about" className="btn-outline-dark">Learn About Us</Link>
+            <Link href="/about" className="btn-outline-dark">Explore Agatha Living</Link>
           </div>
         </div>
       </section>

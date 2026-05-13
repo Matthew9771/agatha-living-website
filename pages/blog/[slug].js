@@ -8,18 +8,18 @@ import { posts } from './index';
 const postContent = {
   'why-serviced-accommodation': {
     body: `
-      <p>When visiting London for business or leisure, most people default to booking a hotel. It feels safe and familiar. But for stays of more than a couple of nights, serviced accommodation is almost always the better option — and more and more visitors are discovering this.</p>
+      <p>When visiting London for business or leisure, most people default to booking a hotel. It feels safe and familiar. But for stays of more than a couple of nights, serviced accommodation is almost always the better option, and more visitors are beginning to see why.</p>
       <h3>More space, less cost</h3>
       <p>A serviced apartment gives you a full kitchen, a living room, and often a separate bedroom — all for a comparable price to a cramped hotel room. For families or groups, the saving is even more significant.</p>
       <h3>The freedom to live like a local</h3>
       <p>Being able to cook your own meals, do laundry, and come and go as you please makes a genuine difference to how relaxed you feel during a trip. It is the difference between being a tourist and feeling at home.</p>
       <h3>What to look for</h3>
-      <p>Look for properties that are professionally managed, have recent five-star reviews, and include all bills in the price. At Agatha Living, every property meets these standards as a minimum.</p>
+      <p>Look for properties that are professionally managed, have recent five-star reviews, and include all bills in the price. Those basics often make the difference between a functional stay and a genuinely relaxing one.</p>
     `,
   },
   'investing-in-se23': {
     body: `
-      <p>Forest Hill in SE23 has quietly become one of South East London's most appealing postcodes for property investors. Here is why we chose it as the base for Agatha Living's first property — and why we think others should be paying attention.</p>
+      <p>Forest Hill in SE23 has quietly become one of South East London's most appealing postcodes for property investors. Here is why the area stands out and why more buyers have started paying closer attention.</p>
       <h3>Transport links</h3>
       <p>Forest Hill station sits on the London Overground, giving direct connections to Shoreditch, Dalston, and Canary Wharf without changing. Journey times to central London are competitive with many Zone 2 locations.</p>
       <h3>A strong community</h3>
@@ -30,7 +30,7 @@ const postContent = {
   },
   'property-management-tips': {
     body: `
-      <p>After managing multiple Airbnb properties and earning consistently five-star reviews, we have learned what guests actually notice — and what makes them leave glowing feedback rather than polite three-stars.</p>
+      <p>After many five-star stays, certain details stand out again and again in guest feedback. These are the touches that people actually notice, remember, and mention in reviews.</p>
       <h3>1. Invest in your linen</h3>
       <p>Guests notice sheets immediately. White, high thread-count duvet covers that are freshly laundered signal quality instantly. It is one of the highest-return investments a host can make.</p>
       <h3>2. Create a proper welcome</h3>
@@ -80,7 +80,7 @@ export default function BlogPost() {
 
       <section className={styles.cta}>
         <span className="section-tag">Get in Touch</span>
-        <h2 className="section-title">Have a question?<br /><em>We'd love to help.</em></h2>
+        <h2 className="section-title">Have a question?<br /><em>Get in touch</em></h2>
         <Link href="/contact" className="btn-gold" style={{marginTop:'28px'}}>Contact Us</Link>
       </section>
     </>

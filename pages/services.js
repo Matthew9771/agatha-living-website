@@ -11,12 +11,12 @@ const services = [
   },
   {
     num: '02', icon: '🔑', title: 'Property Management',
-    desc: 'Hand your property over to us and we handle everything. From listing optimisation and dynamic pricing to guest communications, cleaning coordination, and maintenance — we maximise your returns with zero stress.',
+    desc: 'A fully managed hosting service for owners who want listing optimisation, guest communication, cleaning coordination, and maintenance handled smoothly.',
     features: ['Dynamic pricing strategy', 'Guest screening & communications', 'Professional cleaning between stays', 'Maintenance coordination', 'Monthly performance reports'],
   },
   {
     num: '03', icon: '🏢', title: 'Real Estate',
-    desc: 'Whether you are buying your first home, selling a property, or building an investment portfolio, our real estate service provides expert guidance from search through to completion.',
+    desc: 'Thoughtful property guidance for buyers, sellers, and investors looking for clear support from search through to completion.',
     features: ['Property search & sourcing', 'Investment yield analysis', 'Viewing & negotiation support', 'Solicitor & surveyor referrals', 'Post-purchase management'],
   },
 ];
@@ -24,13 +24,26 @@ const services = [
 export default function Services() {
   const fadeRefs = useRef([]);
   useEffect(() => {
+    const revealAll = () => {
+      fadeRefs.current.forEach(el => el && el.classList.add('visible'));
+    };
+
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
+      revealAll();
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       entries => entries.forEach((e, i) => {
         if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 120);
       }), { threshold: 0.1 }
     );
     fadeRefs.current.forEach(el => el && observer.observe(el));
-    return () => observer.disconnect();
+    const fallbackTimer = window.setTimeout(revealAll, 900);
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
   const addRef = el => { if (el && !fadeRefs.current.includes(el)) fadeRefs.current.push(el); };
 
@@ -42,16 +55,16 @@ export default function Services() {
         <div className="page-hero-bg" />
         <div className="page-hero-overlay" />
         <div className="page-hero-content">
-          <span className="section-tag">What We Offer</span>
+          <span className="section-tag">Services</span>
           <h1>A complete<br /><em>living solution</em></h1>
         </div>
       </div>
 
       <section className={styles.intro}>
         <div ref={addRef} className="fade-up">
-          <span className="section-tag">Our Services</span>
+          <span className="section-tag">Explore Services</span>
           <h2 className="section-title">Everything you need,<br /><em>all in one place</em></h2>
-          <p className="section-sub">From premium short-term stays to full property management and real estate, Agatha Living is your complete property partner.</p>
+          <p className="section-sub">From premium short-term stays to hosting support and property guidance, each service is designed to feel clear, polished, and easy to navigate.</p>
         </div>
       </section>
 
@@ -78,8 +91,8 @@ export default function Services() {
         <div ref={addRef} className="fade-up">
           <span className="section-tag">Get Started</span>
           <h2 className="section-title">Not sure which<br /><em>service you need?</em></h2>
-          <p className="section-sub" style={{marginBottom:'40px'}}>Drop us a message and we'll help you figure out the best option for your situation.</p>
-          <Link href="/contact" className="btn-gold">Talk to Us</Link>
+          <p className="section-sub" style={{marginBottom:'40px'}}>Share what you're looking for and the right option can be mapped out from there.</p>
+          <Link href="/contact" className="btn-gold">Send an enquiry</Link>
         </div>
       </section>
     </>
