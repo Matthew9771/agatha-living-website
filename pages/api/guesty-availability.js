@@ -1,4 +1,5 @@
 const DAY_MS = 24 * 60 * 60 * 1000;
+const DEFAULT_GUESTY_ICAL_URL = 'https://app.guesty.com/api/public/icalendar-dashboard-api/export/e68f4444-d5e2-4b22-ba51-883cd80cac30';
 
 function parseIcalDate(value) {
   if (!value) return null;
@@ -60,7 +61,10 @@ function buildBookedDates(events) {
 }
 
 export default async function handler(req, res) {
-  const icalUrl = process.env.GUESTY_ICAL_URL;
+  const icalUrl =
+    process.env.GUESTY_ICAL_URL ||
+    process.env.NEXT_PUBLIC_GUESTY_ICAL_URL ||
+    DEFAULT_GUESTY_ICAL_URL;
 
   if (!icalUrl) {
     return res.status(200).json({
