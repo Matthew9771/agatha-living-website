@@ -1,8 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import styles from '../styles/Legal.module.css';
+
+function getQueryValue(value, fallback = '') {
+  if (Array.isArray(value)) return value[0] || fallback;
+  return value || fallback;
+}
 
 function formatDate(value) {
   if (!value) return '';
@@ -24,6 +29,14 @@ function formatTotal(value) {
 export default function ReservationPage() {
   const { query } = useRouter();
   const [status, setStatus] = useState('idle');
+  const reservation = useMemo(() => ({
+    property: getQueryValue(query.property, 'Your booking enquiry'),
+    checkIn: getQueryValue(query.checkIn),
+    checkOut: getQueryValue(query.checkOut),
+    guests: getQueryValue(query.guests, '-'),
+    nights: getQueryValue(query.nights, '-'),
+    total: getQueryValue(query.total),
+  }), [query]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -64,15 +77,15 @@ export default function ReservationPage() {
 
       <section className={styles.section}>
         <div className={styles.card}>
-          <h2 className={styles.title}>{query.property || 'Your booking enquiry'}</h2>
+          <h2 className={styles.title}>{reservation.property}</h2>
           <p className={styles.copy}>Review the selected stay below, then send the enquiry directly with the dates already included.</p>
 
           <div className={styles.metaGrid}>
-            <div><strong>Check-in</strong><p>{formatDate(query.checkIn)}</p></div>
-            <div><strong>Check-out</strong><p>{formatDate(query.checkOut)}</p></div>
-            <div><strong>Guests</strong><p>{query.guests || '-'}</p></div>
-            <div><strong>Nights</strong><p>{query.nights || '-'}</p></div>
-            <div><strong>Total</strong><p>{formatTotal(query.total) || '-'}</p></div>
+            <div><strong>Check-in</strong><p>{formatDate(reservation.checkIn)}</p></div>
+            <div><strong>Check-out</strong><p>{formatDate(reservation.checkOut)}</p></div>
+            <div><strong>Guests</strong><p>{reservation.guests}</p></div>
+            <div><strong>Nights</strong><p>{reservation.nights}</p></div>
+            <div><strong>Total</strong><p>{formatTotal(reservation.total) || '-'}</p></div>
           </div>
 
           {status === 'success' ? (
@@ -85,13 +98,13 @@ export default function ReservationPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className={styles.enquiryForm}>
-              <input type="hidden" name="_subject" value={`Booking enquiry — ${query.property || 'Agatha Living stay'}`} />
-              <input type="hidden" name="property" value={query.property || ''} />
-              <input type="hidden" name="check_in" value={formatDate(query.checkIn)} />
-              <input type="hidden" name="check_out" value={formatDate(query.checkOut)} />
-              <input type="hidden" name="guests" value={query.guests || ''} />
-              <input type="hidden" name="nights" value={query.nights || ''} />
-              <input type="hidden" name="total" value={formatTotal(query.total) || ''} />
+              <input type="hidden" name="_subject" value={`Booking enquiry — ${reservation.property || 'Agatha Living stay'}`} />
+              <input type="hidden" name="property" value={reservation.property || ''} />
+              <input type="hidden" name="check_in" value={formatDate(reservation.checkIn)} />
+              <input type="hidden" name="check_out" value={formatDate(reservation.checkOut)} />
+              <input type="hidden" name="guests" value={reservation.guests || ''} />
+              <input type="hidden" name="nights" value={reservation.nights || ''} />
+              <input type="hidden" name="total" value={formatTotal(reservation.total) || ''} />
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
@@ -122,12 +135,12 @@ export default function ReservationPage() {
                   name="message"
                   rows={5}
                   placeholder="Add any arrival notes or questions here…"
-                  defaultValue={`Stay requested: ${query.property || 'Agatha Living stay'}
-Check-in: ${formatDate(query.checkIn) || '-'}
-Check-out: ${formatDate(query.checkOut) || '-'}
-Guests: ${query.guests || '-'}
-Nights: ${query.nights || '-'}
-Total: ${formatTotal(query.total) || '-'}`}
+                  defaultValue={`Stay requested: ${reservation.property || 'Agatha Living stay'}
+Check-in: ${formatDate(reservation.checkIn) || '-'}
+Check-out: ${formatDate(reservation.checkOut) || '-'}
+Guests: ${reservation.guests || '-'}
+Nights: ${reservation.nights || '-'}
+Total: ${formatTotal(reservation.total) || '-'}`}
                 />
               </div>
 

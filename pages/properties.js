@@ -144,7 +144,10 @@ export default function Properties() {
   const [calendarError, setCalendarError] = useState('');
   const [availabilityMessage, setAvailabilityMessage] = useState('');
   const [availabilityTone, setAvailabilityTone] = useState('default');
+  const [showEnquiryForm, setShowEnquiryForm] = useState(false);
+  const [enquiryStatus, setEnquiryStatus] = useState('idle');
   const fadeRefs = useRef([]);
+  const enquiryRef = useRef(null);
 
   const property = properties[0];
   const todayKey = useMemo(() => toDateKey(new Date()), []);
@@ -247,6 +250,25 @@ export default function Properties() {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    if (isCalendarOpen) {
+      document.body.classList.add('calendar-open');
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.classList.remove('calendar-open');
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [isCalendarOpen]);
+
   const isDateBooked = (dateKey) => bookedDates.has(dateKey);
 
   const isInSelectedStay = (dateKey) => {
@@ -259,6 +281,7 @@ export default function Properties() {
     setCheckOut('');
     setAvailabilityMessage('');
     setAvailabilityTone('default');
+    setShowEnquiryForm(false);
   };
 
   const selectedStaySummary = checkIn && checkOut
@@ -316,7 +339,6 @@ export default function Properties() {
     setAvailabilityMessage(
       `${nights === proposedNights ? 'Selected' : 'Stay selected'} from ${formatLongDate(checkIn)} to ${formatLongDate(dateKey)}.`
     );
-    setIsCalendarOpen(false);
   };
 
   const handleSaveDates = () => {
@@ -375,6 +397,50 @@ export default function Properties() {
 
   const incrementGuests = () => setGuests((current) => Math.min(current + 1, 8));
   const decrementGuests = () => setGuests((current) => Math.max(current - 1, 1));
+  const activeMonth = calendarMonths[activeMonthIndex];
+
+  const openEnquiryForm = () => {
+    setIsCalendarOpen(false);
+    setShowEnquiryForm(true);
+    setAvailabilityTone('available');
+    setAvailabilityMessage(
+      `${property.name} is ready for enquiry from ${formatLongDate(checkIn)} to ${formatLongDate(checkOut)} for ${guests} guest${guests === 1 ? '' : 's'}.`
+    );
+  };
+
+  useEffect(() => {
+    if (!showEnquiryForm || typeof window === 'undefined') return;
+
+    const node = enquiryRef.current;
+    if (!node) return;
+
+    const top = node.getBoundingClientRect().top + window.pageYOffset - 24;
+    window.scrollTo(0, Math.max(top, 0));
+  }, [showEnquiryForm]);
+
+  const handleEnquirySubmit = async (event) => {
+    event.preventDefault();
+    setEnquiryStatus('sending');
+
+    const formData = new FormData(event.target);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xldbdwzq', {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error('Unable to send enquiry');
+      }
+
+      setEnquiryStatus('success');
+      event.target.reset();
+    } catch (error) {
+      setEnquiryStatus('error');
+    }
+  };
 
   const calendarPicker = (
     <>
@@ -443,38 +509,33 @@ export default function Properties() {
       ) : (
         <div className={styles.inlineCalendarPanel}>
           <div className={styles.calendarMonths}>
-            {calendarMonths.map((month, index) => (
-              <div
-                key={month.key}
-                className={`${styles.calendarMonth} ${index === activeMonthIndex ? styles.calendarMonthActive : ''}`}
-              >
-                <div className={styles.monthHeader}>{month.label}</div>
-                <div className={styles.weekdays}>
-                  {WEEKDAY_LABELS.map((day) => <span key={day}>{day}</span>)}
-                </div>
-                <div className={styles.daysGrid}>
-                  {month.days.map((day) => {
-                    const isBooked = isDateBooked(day.key);
-                    const isPast = day.key < todayKey;
-                    const isCheckIn = checkIn === day.key;
-                    const isCheckOut = checkOut === day.key;
-                    const isSelected = isCheckIn || isCheckOut || isInSelectedStay(day.key);
-
-                    return (
-                      <button
-                        key={day.key}
-                        type="button"
-                        className={`${styles.dayButton} ${!day.inMonth ? styles.dayMuted : ''} ${isBooked || isPast ? styles.dayBooked : ''} ${isSelected ? styles.daySelected : ''} ${isCheckIn ? styles.dayCheckIn : ''} ${isCheckOut ? styles.dayCheckOut : ''}`}
-                        onClick={() => handleDaySelect(day.key)}
-                        disabled={isBooked || isPast || !day.inMonth}
-                      >
-                        {day.label}
-                      </button>
-                    );
-                  })}
-                </div>
+            <div key={activeMonth.key} className={styles.calendarMonth}>
+              <div className={styles.monthHeader}>{activeMonth.label}</div>
+              <div className={styles.weekdays}>
+                {WEEKDAY_LABELS.map((day) => <span key={day}>{day}</span>)}
               </div>
-            ))}
+              <div className={styles.daysGrid}>
+                {activeMonth.days.map((day) => {
+                  const isBooked = isDateBooked(day.key);
+                  const isPast = day.key < todayKey;
+                  const isCheckIn = checkIn === day.key;
+                  const isCheckOut = checkOut === day.key;
+                  const isSelected = isCheckIn || isCheckOut || isInSelectedStay(day.key);
+
+                  return (
+                    <button
+                      key={day.key}
+                      type="button"
+                      className={`${styles.dayButton} ${!day.inMonth ? styles.dayMuted : ''} ${isBooked || isPast ? styles.dayBooked : ''} ${isSelected ? styles.daySelected : ''} ${isCheckIn ? styles.dayCheckIn : ''} ${isCheckOut ? styles.dayCheckOut : ''}`}
+                      onClick={() => handleDaySelect(day.key)}
+                      disabled={isBooked || isPast || !day.inMonth}
+                    >
+                      {day.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -484,13 +545,23 @@ export default function Properties() {
           <span>Total</span>
           <strong>{estimatedTotal ? formatCurrency(estimatedTotal) : formatCurrency(property.nightlyRate)}</strong>
         </div>
-        <button
-          type="button"
-          className={styles.calendarSaveButton}
-          onClick={handleSaveDates}
-        >
-          Save
-        </button>
+        {isReadyToBook ? (
+          <button
+            type="button"
+            className={styles.calendarSaveButton}
+            onClick={openEnquiryForm}
+          >
+            Continue to enquiry
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={styles.calendarSaveButton}
+            onClick={handleSaveDates}
+          >
+            Save dates
+          </button>
+        )}
       </div>
     </>
   );
@@ -545,22 +616,13 @@ export default function Properties() {
             </div>
 
             {isReadyToBook ? (
-              <Link
-                href={{
-                  pathname: '/reservation',
-                  query: {
-                    property: property.name,
-                    checkIn,
-                    checkOut,
-                    guests,
-                    nights,
-                    total: estimatedTotal,
-                  },
-                }}
+              <button
+                type="button"
                 className={`btn-gold ${styles.bookingButton} ${styles.bookingActionLink}`}
+                onClick={openEnquiryForm}
               >
                 Continue to enquiry
-              </Link>
+              </button>
             ) : (
               <button type="submit" className={`btn-gold ${styles.bookingButton}`}>
                 Check Availability
@@ -602,12 +664,6 @@ export default function Properties() {
             </div>
           ) : null}
 
-          {isCalendarOpen ? (
-            <div id="availability-calendar" className={styles.inlineCalendar}>
-              {calendarPicker}
-            </div>
-          ) : null}
-
         </div>
 
         <div className={styles.grid}>
@@ -639,7 +695,105 @@ export default function Properties() {
           <p className={styles.comingSoonSub}>New stays will appear here as soon as dates open up. Get in touch to receive availability updates.</p>
           <Link href="/contact" className="btn-outline-dark" style={{ marginTop: '28px' }}>Get availability updates</Link>
         </div>
+
+        {showEnquiryForm ? (
+          <div ref={enquiryRef} className={styles.enquiryPanel}>
+            <span className="section-tag">Booking Enquiry</span>
+            <h3 className={styles.enquiryTitle}>Complete your stay enquiry</h3>
+            <p className={styles.enquiryCopy}>
+              The selected dates and stay details are included below. Add your details and send the enquiry directly.
+            </p>
+
+            <div className={styles.enquirySummary}>
+              <div><strong>Property</strong><p>{property.name}</p></div>
+              <div><strong>Check-in</strong><p>{formatLongDate(checkIn)}</p></div>
+              <div><strong>Check-out</strong><p>{formatLongDate(checkOut)}</p></div>
+              <div><strong>Guests</strong><p>{guests}</p></div>
+              <div><strong>Nights</strong><p>{nights}</p></div>
+              <div><strong>Total</strong><p>{formatCurrency(estimatedTotal)}</p></div>
+            </div>
+
+            {enquiryStatus === 'success' ? (
+              <div className={styles.enquirySuccess}>
+                <h4>Enquiry received</h4>
+                <p>Thank you. A confirmation with the next steps will be sent shortly.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleEnquirySubmit} className={styles.enquiryForm}>
+                <input type="hidden" name="_subject" value={`Booking enquiry — ${property.name}`} />
+                <input type="hidden" name="property" value={property.name} />
+                <input type="hidden" name="check_in" value={formatLongDate(checkIn)} />
+                <input type="hidden" name="check_out" value={formatLongDate(checkOut)} />
+                <input type="hidden" name="guests" value={String(guests)} />
+                <input type="hidden" name="nights" value={String(nights)} />
+                <input type="hidden" name="total" value={formatCurrency(estimatedTotal)} />
+
+                <div className={styles.enquiryFormRow}>
+                  <div className={styles.enquiryField}>
+                    <label htmlFor="booking_first_name">First name</label>
+                    <input id="booking_first_name" type="text" name="first_name" placeholder="Jane" required />
+                  </div>
+                  <div className={styles.enquiryField}>
+                    <label htmlFor="booking_last_name">Last name</label>
+                    <input id="booking_last_name" type="text" name="last_name" placeholder="Smith" required />
+                  </div>
+                </div>
+
+                <div className={styles.enquiryFormRow}>
+                  <div className={styles.enquiryField}>
+                    <label htmlFor="booking_email">Email address</label>
+                    <input id="booking_email" type="email" name="email" placeholder="jane@example.com" required />
+                  </div>
+                  <div className={styles.enquiryField}>
+                    <label htmlFor="booking_phone">Phone number</label>
+                    <input id="booking_phone" type="tel" name="phone" placeholder="07700 000000" />
+                  </div>
+                </div>
+
+                <div className={styles.enquiryField}>
+                  <label htmlFor="booking_message">Message</label>
+                  <textarea
+                    id="booking_message"
+                    name="message"
+                    rows={5}
+                    placeholder="Add any arrival notes or questions here…"
+                    defaultValue={`Stay requested: ${property.name}
+Check-in: ${formatLongDate(checkIn)}
+Check-out: ${formatLongDate(checkOut)}
+Guests: ${guests}
+Nights: ${nights}
+Total: ${formatCurrency(estimatedTotal)}`}
+                  />
+                </div>
+
+                {enquiryStatus === 'error' ? (
+                  <p className={styles.enquiryError}>Something went wrong while sending the enquiry. Please try again.</p>
+                ) : null}
+
+                <div className={styles.enquiryActions}>
+                  <button type="submit" className="btn-gold" disabled={enquiryStatus === 'sending'}>
+                    {enquiryStatus === 'sending' ? 'Sending…' : 'Send booking enquiry'}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        ) : null}
       </section>
+
+      {isCalendarOpen ? (
+        <div className={styles.calendarOverlay} role="dialog" aria-modal="true" aria-label="Choose your stay dates">
+          <button
+            type="button"
+            className={styles.calendarScrim}
+            onClick={() => setIsCalendarOpen(false)}
+            aria-label="Close calendar"
+          />
+          <div id="availability-calendar" className={styles.calendarModal}>
+            {calendarPicker}
+          </div>
+        </div>
+      ) : null}
 
     </>
   );
