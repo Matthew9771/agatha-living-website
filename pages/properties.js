@@ -5,6 +5,8 @@ import styles from '../styles/Properties.module.css';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const MIN_STAY_NIGHTS = 2;
+const AIRBNB_FOREST_HILL_URL = 'https://www.airbnb.co.uk/rooms/1394775661627058327?check_in=2026-05-18&check_out=2026-05-20&search_mode=regular_search&source_impression_id=p3_1778713075_P3WfSwqM7tELVXet&previous_page_section_name=1000&federated_search_id=5d1eb801-72ef-4bac-bc47-6f465788be97';
+const BOOKING_FOREST_HILL_URL = 'https://www.booking.com/hotel/gb/stylish-2br-fast-wifi-with-balcony.en-gb.html?label=gen173nr-10CAEoggI46AdIM1gEaFCIAQGYATO4AQfIAQ3YAQPoAQH4AQGIAgGoAgG4ArqIlNAGwAIB0gIkNTQwY2VlYTgtZjBiMi00YjgyLWI2M2YtNzU3NDgzMTRiMTky2AIB4AIB&aid=304142&ucfs=1&checkin=2026-05-18&checkout=2026-05-20&dest_id=80&dest_type=district&group_adults=2&no_rooms=1&group_children=0&srpvid=34d4a2a5f0490c01&srepoch=1778713696&matching_block_id=1395371401_411943997_2_0_0&atlas_src=sr_iw_title';
 const DEFAULT_CALENDAR_DATA = {
   connected: false,
   bookedDates: [],
@@ -399,6 +401,16 @@ export default function Properties() {
   const decrementGuests = () => setGuests((current) => Math.max(current - 1, 1));
   const activeMonth = calendarMonths[activeMonthIndex];
 
+  const openAirbnbListing = () => {
+    if (typeof window === 'undefined') return;
+    window.location.assign(AIRBNB_FOREST_HILL_URL);
+  };
+
+  const openBookingListing = () => {
+    if (typeof window === 'undefined') return;
+    window.location.assign(BOOKING_FOREST_HILL_URL);
+  };
+
   const openEnquiryForm = () => {
     setIsCalendarOpen(false);
     setShowEnquiryForm(true);
@@ -650,6 +662,23 @@ export default function Properties() {
             </div>
           </div>
 
+          <div className={styles.externalBookingRow}>
+            <button
+              type="button"
+              onClick={openAirbnbListing}
+              className="btn-outline-dark"
+            >
+              Book on Airbnb
+            </button>
+            <button
+              type="button"
+              onClick={openBookingListing}
+              className="btn-outline-dark"
+            >
+              Book on Booking.com
+            </button>
+          </div>
+
           {availabilityMessage ? (
             <div
               className={`${styles.availabilityResult} ${
@@ -682,7 +711,23 @@ export default function Properties() {
                 </div>
                 <div className={styles.cardFooter}>
                   <span className={styles.cardPrice}>{p.price}</span>
-                  <Link href="/contact" className="btn-gold">Enquire</Link>
+                  <div className={styles.cardActions}>
+                    <button
+                      type="button"
+                      onClick={openAirbnbListing}
+                      className="btn-outline-dark"
+                    >
+                      Airbnb
+                    </button>
+                    <button
+                      type="button"
+                      onClick={openBookingListing}
+                      className="btn-outline-dark"
+                    >
+                      Booking.com
+                    </button>
+                    <Link href="/contact" className="btn-gold">Enquire</Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -773,6 +818,20 @@ Total: ${formatCurrency(estimatedTotal)}`}
                 <div className={styles.enquiryActions}>
                   <button type="submit" className="btn-gold" disabled={enquiryStatus === 'sending'}>
                     {enquiryStatus === 'sending' ? 'Sending…' : 'Send booking enquiry'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={openAirbnbListing}
+                    className="btn-outline-dark"
+                  >
+                    Book on Airbnb
+                  </button>
+                  <button
+                    type="button"
+                    onClick={openBookingListing}
+                    className="btn-outline-dark"
+                  >
+                    Book on Booking.com
                   </button>
                 </div>
               </form>

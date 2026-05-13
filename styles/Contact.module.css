@@ -8,8 +8,24 @@
 a.detailValue:hover { color: var(--gold); }
 .social { display: flex; flex-direction: column; }
 .socialLinks { display: flex; gap: 20px; flex-wrap: wrap; }
-.socialLinks a { font-size: 14px; color: var(--ink); text-decoration: none; transition: color 0.2s; }
-.socialLinks a:hover { color: var(--gold); }
+.socialLinks a,
+.socialLinks button {
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.socialLinks button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.socialLinks a:hover,
+.socialLinks button:hover { color: var(--gold); }
 
 .formWrap { background: #fff; padding: 56px 48px; }
 .form { display: flex; flex-direction: column; gap: 20px; }
@@ -48,7 +64,8 @@ a.detailValue:hover { color: var(--gold); }
   }
 
   .detailValue,
-  .socialLinks a {
+  .socialLinks a,
+  .socialLinks button {
     font-size: 14px;
   }
 

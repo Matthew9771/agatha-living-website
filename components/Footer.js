@@ -33,6 +33,18 @@ export default function Footer() {
             <li><a href="tel:+447405803252">07405 803 252</a></li>
           </ul>
         </div>
+        <div className={styles.col}>
+          <h5>Policies</h5>
+          <ul>
+            <li><Link href="/terms-and-conditions">Terms &amp; Conditions</Link></li>
+            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+            <li><Link href="/cancellation-policy">Cancellation Policy</Link></li>
+            <li><Link href="/refund-policy">Refund Policy</Link></li>
+            <li><Link href="/damage-policy">Damage Policy</Link></li>
+            <li><Link href="/company-details">Company Details</Link></li>
+            <li><Link href="/contact-details">Contact Details</Link></li>
+          </ul>
+        </div>
       </div>
       <div className={styles.bottom}>
         <p>© {new Date().getFullYear()} Agatha Living. All rights reserved.</p>
@@ -40,6 +52,8 @@ export default function Footer() {
           <Link href="/privacy-policy">Privacy Policy</Link>
           <span>·</span>
           <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
+          <span>·</span>
+          <Link href="/cancellation-policy">Cancellation Policy</Link>
         </p>
       </div>
     </footer>

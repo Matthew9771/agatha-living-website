@@ -30,8 +30,8 @@ export default function TermsAndConditions() {
 
             <h2>1. About This Website</h2>
             <p>
-              This website is provided for general information about Agatha Living, our serviced accommodation,
-              property management, and real estate-related services.
+              This website is provided by Agatha Living LTD, company number 16282753, trading as Agatha Living,
+              for general information about our serviced accommodation, property management, and real estate-related services.
             </p>
 
             <h2>2. Website Use</h2>

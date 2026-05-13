@@ -220,6 +220,7 @@
 .cardFeature { font-size: 11px; letter-spacing: 0.08em; padding: 6px 14px; border: 1px solid var(--border); color: var(--mid); }
 .cardFooter { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border); }
 .cardPrice { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold); font-weight: 300; }
+.cardActions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 
 .comingSoon { margin-top: 80px; padding: 72px; background: #fff; text-align: center; }
 .comingSoonTitle { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 14px; }
@@ -322,6 +323,8 @@
 .enquiryActions {
   display: flex;
   justify-content: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
   margin-top: 4px;
 }
 
@@ -355,6 +358,7 @@
 .booking h2 em { color: var(--gold); }
 .booking h2 { color: #fff; }
 .booking .section-sub { color: rgba(255,255,255,0.5); }
+.externalBookingRow { margin-top: 18px; display: flex; justify-content: flex-start; }
 
 .calendarOverlay {
   position: fixed;

@@ -30,8 +30,9 @@ export default function PrivacyPolicy() {
 
             <h2>1. Who We Are</h2>
             <p>
-              Agatha Living provides serviced accommodation, property management, and real estate-related services.
-              If you have any questions about this policy, you can contact us at
+              Agatha Living LTD, company number 16282753, trading as Agatha Living, provides serviced accommodation,
+              property management, and real estate-related services. Our trading address is 128 City Road, London,
+              EC1V 2NX. If you have any questions about this policy, you can contact us at
               {' '}<a href="mailto:support@agathaliving.co.uk">support@agathaliving.co.uk</a>.
             </p>
 
