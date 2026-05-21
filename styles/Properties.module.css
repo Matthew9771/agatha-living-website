@@ -635,6 +635,16 @@
   text-decoration: none;
 }
 
+.calendarSaveButtonOutline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #fff;
+}
+
+.calendarSaveButtonOutline:hover {
+  background: rgba(255,255,255,0.06);
+}
+
 .calendarFooter a:hover {
   text-decoration: underline;
 }

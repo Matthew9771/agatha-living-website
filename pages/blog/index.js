@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useFadeUp } from '../../hooks/useFadeUp';
 import styles from '../../styles/Blog.module.css';
 
 // To add a new blog post, just add an object to this array
@@ -30,30 +30,7 @@ export const posts = [
 ];
 
 export default function Blog() {
-  const fadeRefs = useRef([]);
-  useEffect(() => {
-    const revealAll = () => {
-      fadeRefs.current.forEach(el => el && el.classList.add('visible'));
-    };
-
-    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
-      revealAll();
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      entries => entries.forEach((e, i) => {
-        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 120);
-      }), { threshold: 0.1 }
-    );
-    fadeRefs.current.forEach(el => el && observer.observe(el));
-    const fallbackTimer = window.setTimeout(revealAll, 900);
-    return () => {
-      window.clearTimeout(fallbackTimer);
-      observer.disconnect();
-    };
-  }, []);
-  const addRef = el => { if (el && !fadeRefs.current.includes(el)) fadeRefs.current.push(el); };
+  const addRef = useFadeUp();
 
   return (
     <>

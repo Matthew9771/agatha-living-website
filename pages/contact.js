@@ -1,54 +1,18 @@
 import Head from 'next/head';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { AIRBNB_FOREST_HILL_URL, BOOKING_FOREST_HILL_URL, FORMSPREE_URL } from '../lib/config';
+import { useFadeUp } from '../hooks/useFadeUp';
 import styles from '../styles/Contact.module.css';
 
-const AIRBNB_FOREST_HILL_URL = 'https://www.airbnb.co.uk/rooms/1394775661627058327?check_in=2026-05-18&check_out=2026-05-20&search_mode=regular_search&source_impression_id=p3_1778713075_P3WfSwqM7tELVXet&previous_page_section_name=1000&federated_search_id=5d1eb801-72ef-4bac-bc47-6f465788be97';
-const BOOKING_FOREST_HILL_URL = 'https://www.booking.com/hotel/gb/stylish-2br-fast-wifi-with-balcony.en-gb.html?label=gen173nr-10CAEoggI46AdIM1gEaFCIAQGYATO4AQfIAQ3YAQPoAQH4AQGIAgGoAgG4ArqIlNAGwAIB0gIkNTQwY2VlYTgtZjBiMi00YjgyLWI2M2YtNzU3NDgzMTRiMTky2AIB4AIB&aid=304142&ucfs=1&checkin=2026-05-18&checkout=2026-05-20&dest_id=80&dest_type=district&group_adults=2&no_rooms=1&group_children=0&srpvid=34d4a2a5f0490c01&srepoch=1778713696&matching_block_id=1395371401_411943997_2_0_0&atlas_src=sr_iw_title';
-
 export default function Contact() {
-  const [status, setStatus] = useState('idle'); // idle | sending | success | error
-  const fadeRefs = useRef([]);
-
-  const openAirbnbListing = () => {
-    if (typeof window === 'undefined') return;
-    window.location.assign(AIRBNB_FOREST_HILL_URL);
-  };
-
-  const openBookingListing = () => {
-    if (typeof window === 'undefined') return;
-    window.location.assign(BOOKING_FOREST_HILL_URL);
-  };
-
-  useEffect(() => {
-    const revealAll = () => {
-      fadeRefs.current.forEach(el => el && el.classList.add('visible'));
-    };
-
-    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
-      revealAll();
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      entries => entries.forEach((e, i) => {
-        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 120);
-      }), { threshold: 0.1 }
-    );
-    fadeRefs.current.forEach(el => el && observer.observe(el));
-    const fallbackTimer = window.setTimeout(revealAll, 900);
-    return () => {
-      window.clearTimeout(fallbackTimer);
-      observer.disconnect();
-    };
-  }, []);
-  const addRef = el => { if (el && !fadeRefs.current.includes(el)) fadeRefs.current.push(el); };
+  const [status, setStatus] = useState('idle');
+  const addRef = useFadeUp();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
     const data = new FormData(e.target);
-    // Replace YOUR_FORM_ID with your Formspree ID from formspree.io/new
-    const res = await fetch('https://formspree.io/f/xldbdwzq', {
+    const res = await fetch(FORMSPREE_URL, {
       method: 'POST',
       body: data,
       headers: { Accept: 'application/json' },
@@ -104,8 +68,8 @@ export default function Contact() {
               <div className={styles.socialLinks}>
                 <a href="#">Instagram</a>
                 <a href="#">LinkedIn</a>
-                <button type="button" onClick={openAirbnbListing}>Airbnb</button>
-                <button type="button" onClick={openBookingListing}>Booking.com</button>
+                <a href={AIRBNB_FOREST_HILL_URL} target="_blank" rel="noopener noreferrer">Airbnb</a>
+                <a href={BOOKING_FOREST_HILL_URL} target="_blank" rel="noopener noreferrer">Booking.com</a>
               </div>
             </div>
           </div>

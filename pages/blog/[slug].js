@@ -55,7 +55,15 @@ export default function BlogPost() {
 
   return (
     <>
-      <Head><title>{post.title} | Agatha Living Blog</title></Head>
+      <Head>
+        <title>{post.title} | Agatha Living Blog</title>
+        <meta name="description" content={post.excerpt} />
+        <meta property="og:title" content={`${post.title} | Agatha Living`} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="article:published_time" content={post.date} />
+        <meta property="article:section" content={post.category} />
+      </Head>
 
       <div className="page-hero page-hero-article">
         <div className="page-hero-bg" />
