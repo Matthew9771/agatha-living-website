@@ -51,6 +51,7 @@ export default function ReservationPage() {
       enquiry_type: 'Booking Enquiry',
       source_page: 'Booking enquiry page',
       message: formData.get('message'),
+      marketing_consent: formData.get('marketing_consent') === 'on',
       property: formData.get('property'),
       check_in: formData.get('check_in'),
       check_out: formData.get('check_out'),
@@ -156,6 +157,11 @@ Guests: ${reservation.guests || '-'}
 Nights: ${reservation.nights || '-'}
 Total: ${formatTotal(reservation.total) || '-'}`}
                 />
+              </div>
+
+              <div className={styles.formGroupCheckbox}>
+                <input id="reservation-consent" name="marketing_consent" type="checkbox" />
+                <label htmlFor="reservation-consent">I'd like to receive occasional updates and offers from Agatha Living. I can unsubscribe at any time.</label>
               </div>
 
               {status === 'error' ? (

@@ -85,3 +85,7 @@ a.detailValue:hover { color: var(--gold); }
     font-size: 30px;
   }
 }
+
+.formGroupCheckbox { display: flex; gap: 12px; align-items: flex-start; margin-top: 4px; }
+.formGroupCheckbox input { margin-top: 5px; width: 18px; height: 18px; accent-color: var(--gold); flex-shrink: 0; }
+.formGroupCheckbox label { font-size: 14px; color: var(--mid); line-height: 1.7; cursor: pointer; }

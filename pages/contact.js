@@ -21,6 +21,7 @@ export default function Contact() {
       enquiry_type: formData.get('enquiry_type') || 'General enquiry',
       source_page: 'Contact page',
       message: formData.get('message'),
+      marketing_consent: formData.get('marketing_consent') === 'on',
     };
 
     const res = await fetch('/api/leads', {
@@ -127,6 +128,10 @@ export default function Contact() {
                 <div className={styles.formGroup}>
                   <label>Message</label>
                   <textarea name="message" rows={5} placeholder="Tell us a bit more about what you're looking for…" />
+                </div>
+                <div className={styles.formGroupCheckbox}>
+                  <input id="contact-consent" name="marketing_consent" type="checkbox" />
+                  <label htmlFor="contact-consent">I'd like to receive occasional updates and offers from Agatha Living. I can unsubscribe at any time.</label>
                 </div>
                 {status === 'error' && <p className={styles.errorMsg}>Something went wrong: {errorMsg}. Please try again or email us directly.</p>}
                 <button type="submit" className={`btn-gold ${styles.submitBtn}`} disabled={status === 'sending'}>
