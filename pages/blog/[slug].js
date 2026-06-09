@@ -43,6 +43,41 @@ const postContent = {
       <p>On check-out day, send a brief, warm message thanking the guest and gently mentioning that a review would mean a lot. Most happy guests simply forget — a reminder converts them.</p>
     `,
   },
+  'direct-booking-benefits': {
+    body: `
+      <p>Booking platforms are useful, but they are not always the simplest route for every stay. When a guest already knows the property they want, direct booking can make the experience clearer from the first message.</p>
+      <h3>Fewer layers between guest and host</h3>
+      <p>Direct booking means questions can be answered by the team managing the stay. Arrival needs, parking, check-in details, guest numbers, and timing can be discussed without waiting for platform routing or automated replies.</p>
+      <h3>Clearer stay details</h3>
+      <p>Every stay has small practical details that matter. Direct communication helps confirm what is included, what the property is suitable for, and whether the dates work before the guest commits.</p>
+      <h3>A more personal experience</h3>
+      <p>Guests often want reassurance before they book. A direct enquiry gives them a chance to speak to Agatha Living, understand the property, and feel confident that the stay is being handled properly.</p>
+    `,
+  },
+  'serviced-accommodation-landlord-checklist': {
+    body: `
+      <p>Serviced accommodation can work well for the right property, but it is not a guaranteed upgrade from traditional letting. Landlords should review the fundamentals before making the switch.</p>
+      <h3>Check local demand</h3>
+      <p>Look at who would realistically book the property: business travellers, contractors, families, relocators, or leisure guests. Demand should match the location, transport links, property layout, and nightly rate.</p>
+      <h3>Understand setup costs</h3>
+      <p>Furniture, linen, photography, cleaning supplies, safety checks, smart access, utilities, maintenance, and initial styling all affect the numbers. A property needs enough margin to absorb these costs.</p>
+      <h3>Plan the operation</h3>
+      <p>Short-stay management is active work. Guest messaging, cleaning, maintenance, pricing, calendar control, and issue handling need a reliable process before the property goes live.</p>
+      <h3>Be realistic about returns</h3>
+      <p>Good projections include occupancy changes, quieter periods, management costs, cleaning costs, repairs, platform fees, and utilities. The best decisions come from practical modelling rather than headline nightly rates.</p>
+    `,
+  },
+  'forest-hill-short-stay-guide': {
+    body: `
+      <p>Forest Hill is a strong choice for guests who want London access with a calmer neighbourhood feel. It has useful transport links, green spaces, independent food spots, and a practical base for longer city stays.</p>
+      <h3>Easy London connections</h3>
+      <p>Forest Hill station connects into the London Overground network, with routes towards key parts of East and Central London. It is especially useful for guests who want city access without staying in a high-traffic tourist area.</p>
+      <h3>A neighbourhood with character</h3>
+      <p>The area has independent cafes, shops, restaurants, and everyday essentials within easy reach. That makes it suitable for guests who want to settle into a real neighbourhood rather than live out of a hotel room.</p>
+      <h3>Good for practical stays</h3>
+      <p>For relocations, work trips, family visits, and medium-length stays, Forest Hill offers a balance of transport, comfort, and local convenience. A serviced apartment can make that experience feel more settled.</p>
+    `,
+  },
 };
 
 export default function BlogPost() {
@@ -56,7 +91,7 @@ export default function BlogPost() {
   return (
     <>
       <Head>
-        <title>{post.title} | Agatha Living Blog</title>
+        <title>{`${post.title} | Agatha Living Blog`}</title>
         <meta name="description" content={post.excerpt} />
         <meta property="og:title" content={`${post.title} | Agatha Living`} />
         <meta property="og:description" content={post.excerpt} />

@@ -20,7 +20,7 @@ export default function PrivacyPolicy() {
 
       <section className={styles.section}>
         <div className={styles.card}>
-          <p className={styles.updated}>Last updated: 13 May 2026</p>
+          <p className={styles.updated}>Last updated: 9 June 2026</p>
 
           <div className={styles.content}>
             <p>
@@ -40,6 +40,7 @@ export default function PrivacyPolicy() {
             <p>We may collect the following information:</p>
             <ul>
               <li>Your name, email address, phone number, and enquiry details when you complete a contact form.</li>
+              <li>Lead and enquiry information submitted through the website, including enquiry type, source page, message, marketing consent preference, and booking enquiry details such as property, dates, guest numbers, nights, and estimated totals where you provide or select them.</li>
               <li>Information you provide when you contact us directly by email or phone.</li>
               <li>Basic technical information such as browser type, device type, and general usage information collected by hosting or analytics tools.</li>
             </ul>
@@ -55,9 +56,11 @@ export default function PrivacyPolicy() {
 
             <h2>4. Form Submissions</h2>
             <p>
-              Our website may use third-party form handling services to receive and process enquiries submitted through
-              the contact form. Information submitted through these forms is used only for business communication and
-              enquiry management.
+              Website forms submit enquiry information to our secure lead management database hosted by Supabase.
+              This helps us receive, store, and manage enquiries from contact forms, booking enquiry forms, and mailing
+              list or priority guest list forms. Information submitted through these forms is used for business
+              communication, enquiry management, booking follow-up, and marketing communication only where you have
+              provided the relevant consent.
             </p>
 
             <h2>5. Legal Basis for Processing</h2>
@@ -72,12 +75,17 @@ export default function PrivacyPolicy() {
             <p>
               We do not sell your personal information. We may share limited information with trusted service providers
               who help us operate the website, manage enquiries, or deliver our services, but only where reasonably necessary.
+              This includes Supabase, which provides database hosting for website enquiries, and may include payment,
+              booking, email, hosting, analytics, or professional service providers where needed to respond to your enquiry
+              or deliver a requested service.
             </p>
 
             <h2>7. Data Retention</h2>
             <p>
               We keep personal information only for as long as reasonably necessary for enquiry handling, customer
-              communication, record keeping, or legal compliance.
+              communication, record keeping, service delivery, marketing preferences, or legal compliance. If you ask us
+              to delete or update your information, we will consider and respond to that request in line with applicable
+              data protection law and any legitimate record-keeping obligations.
             </p>
 
             <h2>8. Your Rights</h2>
@@ -92,7 +100,8 @@ export default function PrivacyPolicy() {
             <h2>9. Security</h2>
             <p>
               We take reasonable steps to protect personal information, but no internet transmission or storage method
-              can be guaranteed to be completely secure.
+              can be guaranteed to be completely secure. Access to stored enquiry data is restricted to people and service
+              providers who need it for legitimate business purposes.
             </p>
 
             <h2>10. External Links</h2>

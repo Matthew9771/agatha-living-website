@@ -44,6 +44,23 @@
     radial-gradient(circle at 78% 20%, rgba(107,127,110,0.14) 0%, rgba(107,127,110,0.04) 14%, rgba(107,127,110,0) 32%),
     linear-gradient(145deg, #181612 0%, #12100d 54%, #0d0c0a 100%);
 }
+.cardImg4 {
+  background:
+    radial-gradient(circle at 70% 28%, rgba(201,169,110,0.18) 0%, rgba(201,169,110,0.05) 18%, rgba(201,169,110,0) 40%),
+    linear-gradient(145deg, #171410 0%, #11100d 56%, #0d0c0a 100%);
+}
+.cardImg5 {
+  background:
+    radial-gradient(circle at 22% 26%, rgba(107,127,110,0.16) 0%, rgba(107,127,110,0.05) 18%, rgba(107,127,110,0) 38%),
+    radial-gradient(circle at 78% 76%, rgba(201,169,110,0.13) 0%, rgba(201,169,110,0.04) 15%, rgba(201,169,110,0) 32%),
+    linear-gradient(145deg, #181612 0%, #12100e 54%, #0c0b09 100%);
+}
+.cardImg6 {
+  background:
+    radial-gradient(circle at 50% 20%, rgba(201,169,110,0.14) 0%, rgba(201,169,110,0.04) 18%, rgba(201,169,110,0) 42%),
+    radial-gradient(circle at 18% 78%, rgba(107,127,110,0.13) 0%, rgba(107,127,110,0.04) 16%, rgba(107,127,110,0) 34%),
+    linear-gradient(145deg, #171511 0%, #11100d 56%, #0d0b09 100%);
+}
 .card:hover .cardImg { transform: scale(1.03); }
 .featured .cardImg { aspect-ratio: auto; height: 100%; min-height: 380px; }
 .cardCategory { position: absolute; top: 0; left: 0; background: var(--gold); color: var(--ink); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 7px 16px; font-weight: 500; }

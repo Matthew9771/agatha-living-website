@@ -26,17 +26,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta name="description" content="Agatha Living — Premium serviced accommodation and real estate services in London." />
-        <meta property="og:title" content="Agatha Living" />
-        <meta property="og:description" content="Premium serviced accommodation and real estate services in London." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={SITE_URL} />
-        <meta property="og:image" content={`${SITE_URL}/og-image.jpg`} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Agatha Living" />
-        <meta name="twitter:description" content="Premium serviced accommodation and real estate services in London." />
-        <link rel="canonical" href={SITE_URL} />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

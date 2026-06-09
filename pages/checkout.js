@@ -86,8 +86,9 @@ export default function CheckoutPage() {
   const [loadingIntent, setLoadingIntent] = useState(false);
   const [intentError, setIntentError] = useState('');
   const [paid, setPaid] = useState(false);
+  const [returnMessage, setReturnMessage] = useState('');
 
-  const confirmed = getQueryValue(query.confirmed) === 'true';
+  const returnedClientSecret = getQueryValue(query.payment_intent_client_secret);
 
   const booking = useMemo(() => ({
     property: getQueryValue(query.property, 'Greystead Road'),
@@ -99,10 +100,10 @@ export default function CheckoutPage() {
   }), [query]);
 
   const depositAmount = Math.round(booking.total * DEPOSIT_PERCENT / 100);
-  const chargeAmount = paymentMode === 'deposit' ? depositAmount : booking.total;
 
   useEffect(() => {
     if (!booking.total || booking.total < 1) return;
+    if (returnedClientSecret) return;
 
     setLoadingIntent(true);
     setClientSecret('');
@@ -112,12 +113,11 @@ export default function CheckoutPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        amount: chargeAmount,
         property: booking.property,
         checkIn: booking.checkIn,
         checkOut: booking.checkOut,
         guests: booking.guests,
-        nights: booking.nights,
+        paymentMode,
       }),
     })
       .then(res => res.json())
@@ -130,7 +130,45 @@ export default function CheckoutPage() {
       })
       .catch(() => setIntentError('Unable to connect to payment service.'))
       .finally(() => setLoadingIntent(false));
-  }, [chargeAmount, booking.property, booking.checkIn, booking.checkOut, booking.guests, booking.nights, booking.total]);
+  }, [booking.property, booking.checkIn, booking.checkOut, booking.guests, booking.total, paymentMode, returnedClientSecret]);
+
+  useEffect(() => {
+    if (!returnedClientSecret) return;
+
+    let isMounted = true;
+    setLoadingIntent(true);
+    setIntentError('');
+    setReturnMessage('Checking your payment status...');
+
+    const stripeLoader = getStripe();
+    if (!stripeLoader) {
+      setIntentError('Payment service is not configured.');
+      setLoadingIntent(false);
+      return;
+    }
+
+    stripeLoader
+      .then(stripe => stripe.retrievePaymentIntent(returnedClientSecret))
+      .then(result => {
+        if (!isMounted) return;
+        const status = result?.paymentIntent?.status;
+        if (status === 'succeeded') {
+          setPaid(true);
+        } else if (status === 'processing') {
+          setReturnMessage('Your payment is processing. We will confirm as soon as Stripe completes it.');
+        } else {
+          setIntentError('Payment was not completed. Please try again or contact us.');
+        }
+      })
+      .catch(() => {
+        if (isMounted) setIntentError('Unable to verify payment status. Please contact us if money has left your account.');
+      })
+      .finally(() => {
+        if (isMounted) setLoadingIntent(false);
+      });
+
+    return () => { isMounted = false; };
+  }, [returnedClientSecret]);
 
   const stripeOptions = useMemo(() => ({
     clientSecret,
@@ -147,7 +185,7 @@ export default function CheckoutPage() {
     },
   }), [clientSecret]);
 
-  if (paid || confirmed) {
+  if (paid) {
     return (
       <>
         <Head><title>Booking Confirmed | Agatha Living</title></Head>
@@ -270,6 +308,10 @@ export default function CheckoutPage() {
 
             {!booking.total ? (
               <p className={styles.error}>No booking details found. Please go back and select your dates.</p>
+            ) : !STRIPE_PUBLISHABLE_KEY ? (
+              <p className={styles.error}>Payment service is not configured.</p>
+            ) : returnMessage ? (
+              <div className={styles.processing}>{returnMessage}</div>
             ) : intentError ? (
               <p className={styles.error}>{intentError}</p>
             ) : loadingIntent || !clientSecret ? (

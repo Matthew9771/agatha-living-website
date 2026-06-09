@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { AIRBNB_FOREST_HILL_URL, BOOKING_FOREST_HILL_URL, FORMSPREE_URL } from '../lib/config';
+import { AIRBNB_FOREST_HILL_URL, BOOKING_FOREST_HILL_URL } from '../lib/config';
 import { useFadeUp } from '../hooks/useFadeUp';
 import styles from '../styles/Contact.module.css';
 
@@ -11,12 +11,23 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
-    const data = new FormData(e.target);
-    const res = await fetch(FORMSPREE_URL, {
+    const formData = new FormData(e.target);
+    const payload = {
+      first_name: formData.get('first_name'),
+      last_name: formData.get('last_name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      enquiry_type: formData.get('enquiry_type') || 'General enquiry',
+      source_page: 'Contact page',
+      message: formData.get('message'),
+    };
+
+    const res = await fetch('/api/leads', {
       method: 'POST',
-      body: data,
-      headers: { Accept: 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     });
+
     if (res.ok) {
       setStatus('success');
       e.target.reset();
@@ -66,8 +77,6 @@ export default function Contact() {
               <span className={styles.detailLabel}>Find Us</span>
               <div className={styles.detailDivider} />
               <div className={styles.socialLinks}>
-                <a href="#">Instagram</a>
-                <a href="#">LinkedIn</a>
                 <a href={AIRBNB_FOREST_HILL_URL} target="_blank" rel="noopener noreferrer">Airbnb</a>
                 <a href={BOOKING_FOREST_HILL_URL} target="_blank" rel="noopener noreferrer">Booking.com</a>
               </div>
@@ -84,7 +93,6 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className={styles.form}>
-                <input type="hidden" name="_subject" value="New enquiry — Agatha Living" />
                 <div className={styles.formRow}>
                   <div className={styles.formGroup}>
                     <label>First Name</label>
@@ -105,11 +113,12 @@ export default function Contact() {
                 </div>
                 <div className={styles.formGroup}>
                   <label>I'm interested in</label>
-                  <select name="interest">
-                    <option>Short-term accommodation</option>
-                    <option>Property management</option>
-                    <option>Buying / selling property</option>
-                    <option>General enquiry</option>
+                  <select name="enquiry_type">
+                    <option value="Short-term accommodation">Short-term accommodation</option>
+                    <option value="Property management">Property management</option>
+                    <option value="Investor support">Investor support</option>
+                    <option value="Buying / selling property">Buying / selling property</option>
+                    <option value="General enquiry">General enquiry</option>
                   </select>
                 </div>
                 <div className={styles.formGroup}>

@@ -1,5 +1,7 @@
 .section { padding: 110px 80px; background: var(--bg); }
 
+.propertyDetailSection { padding-bottom: 180px; }
+
 .bookingShell {
   margin-top: 44px;
   margin-bottom: 56px;
@@ -206,10 +208,63 @@
   color: var(--ink);
 }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 32px; margin-top: 64px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; margin-top: 48px; }
+.propertyHero { position: relative; min-height: 400px; background: linear-gradient(180deg, rgba(18,16,14,0.96), rgba(18,16,14,0.7)); display: flex; align-items: flex-end; }
+.propertyHeroOverlay { position: absolute; inset: 0; background: radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 38%); }
+.propertyHeroContent { position: relative; z-index: 1; max-width: 980px; width: 100%; padding: 104px 40px 58px; color: #fff; }
+.propertyBackLink { display: flex; width: fit-content; align-items: center; margin-bottom: 34px; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.92); text-decoration: none; font-size: 14px; }
+.propertyBackLink:hover { text-decoration: underline; }
+.propertyTitle { font-size: clamp(46px, 5vw, 72px); line-height: 1.02; margin-bottom: 16px; }
+.propertySubtitle { font-size: 16px; color: rgba(255,255,255,0.86); max-width: 780px; margin-bottom: 22px; }
+.bookingCard[id="availability"] { scroll-margin-top: 120px; }
+.propertyMeta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; color: rgba(255,255,255,0.78); font-size: 14px; }
+.propertyMeta span { background: rgba(255,255,255,0.12); padding: 10px 14px; border-radius: 999px; }
+.propertyGallery { margin-bottom: 56px; }
+.propertyGallery .section-tag { margin-bottom: 10px; display: inline-block; }
+.galleryRow { display: flex; gap: 18px; margin-top: 28px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x proximity; max-height: 240px; }
+.galleryItem { min-width: 280px; min-height: 220px; height: 220px; flex: 0 0 auto; scroll-snap-align: start; overflow: hidden; border-radius: 24px; box-shadow: 0 24px 80px rgba(12,12,12,0.07); background: #f8f6f2; }
+.galleryImage { width: 100%; height: 100%; display: block; object-fit: cover; }
+.gallerySingle { margin-top: 28px; max-width: 620px; }
+.galleryItemSingle { position: relative; overflow: hidden; border-radius: 24px; box-shadow: 0 24px 80px rgba(12,12,12,0.07); background: #f8f6f2; aspect-ratio: 4 / 3; }
+.galleryItemSingle .galleryImage { object-fit: contain; }
+.galleryImageButton { width: 100%; height: 100%; border: 0; background: transparent; display: block; padding: 0; cursor: pointer; }
+.galleryPager { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+.galleryPagerDot { width: 12px; height: 12px; border-radius: 999px; border: 1px solid rgba(16,17,20,0.14); background: rgba(255,255,255,0.88); cursor: pointer; }
+.galleryPagerDotActive { background: var(--gold); border-color: rgba(214,173,83,0.5); }
+.propertySplit { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: start; }
+.cardImg { position: relative; overflow: hidden; border-radius: 30px; background: #f8f6f2; min-height: 170px; height: 190px; }
+.cardGallery { display: flex; width: 100%; height: 100%; transition: transform 0.35s ease; }
+.cardGalleryNav { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; pointer-events: none; }
+.cardGalleryButton { pointer-events: auto; width: 42px; height: 42px; border-radius: 999px; border: 1px solid rgba(16,17,20,0.12); background: rgba(255,255,255,0.88); color: var(--ink); font-size: 22px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .18s ease, background .18s ease; }
+.cardGalleryButton:hover { transform: scale(1.05); background: rgba(255,255,255,0.98); }
+.cardGalleryItem { min-width: 100%; flex: 0 0 100%; overflow: hidden; }
+.cardGalleryImage { width: 100%; height: 100%; display: block; object-fit: cover; }
+.savedDatesSummary { margin-top: 18px; padding: 16px 18px; border-radius: 20px; background: rgba(246,240,233,0.92); border: 1px solid rgba(201,169,110,0.22); color: var(--ink); font-size: 14px; line-height: 1.6; }
+.propertyDetails { display: flex; flex-direction: column; gap: 32px; }
+.propertyDescription { max-width: 860px; line-height: 1.9; color: var(--mid); }
+.detailFeatureList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.detailFeature { padding: 18px 20px; border-radius: 22px; background: rgba(246,240,233,0.92); font-size: 14px; color: var(--ink); }
+.detailList { display: grid; gap: 12px; padding-left: 20px; color: var(--mid); }
+.detailList li { margin-bottom: 8px; }
+.detailInfoGrid { display: grid; gap: 16px; }
+.detailInfoItem { padding: 20px 22px; border-radius: 22px; background: rgba(255,255,255,0.86); border: 1px solid rgba(16,17,20,0.06); }
+.detailInfoItem strong { display: block; margin-bottom: 10px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(24,22,19,0.55); }
+.detailBookingPanel { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 24px; }
+.availabilityTopWrapper { margin-bottom: 42px; }
+.bookingCard { padding: 28px 26px; border-radius: 28px; background: rgba(255,255,255,0.92); border: 1px solid rgba(16,17,20,0.08); box-shadow: 0 24px 70px rgba(44,33,20,0.08); }
+.bookingCardTitle { font-size: 24px; margin: 18px 0 10px; }
+.bottomBookingBar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; padding: 18px clamp(20px, 4vw, 32px); margin: 0; width: 100%; max-width: 100%; box-sizing: border-box; border-top: 1px solid rgba(16,17,20,0.08); background: rgba(255,255,255,0.98); backdrop-filter: blur(14px); box-shadow: 0 -10px 34px rgba(0,0,0,0.12); }
+.bottomBookingDetails { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; min-width: 0; }
+.bottomBookingLabel { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(24,22,19,0.55); margin-bottom: 6px; }
+.bottomBookingMeta { display: flex; gap: 12px; flex-wrap: wrap; font-size: 14px; color: var(--mid); }
+.bottomBookingMeta span { padding: 10px 14px; border-radius: 18px; background: rgba(246,240,233,0.92); }
+.bottomBookingActions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.bottomBookingPrice { font-size: 20px; font-weight: 600; color: var(--ink); }
+.bookingCardText { color: var(--mid); line-height: 1.8; margin-bottom: 18px; }
+.bookingFieldGroup { display: grid; gap: 14px; margin-bottom: 16px; }
+.propertyHero .section-tag { color: #fff; }
+
 .card { background: #fff; overflow: hidden; transition: transform 0.3s; }
-.card:hover { transform: translateY(-4px); }
-.cardImg { aspect-ratio: 16/10; background-size: cover; background-position: center; position: relative; }
 .cardTag { position: absolute; top: 0; left: 0; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; padding: 8px 18px; font-weight: 500; }
 .available { background: var(--gold); color: var(--ink); }
 .unavailable { background: rgba(0,0,0,0.5); color: #fff; }

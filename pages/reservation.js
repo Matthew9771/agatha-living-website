@@ -43,12 +43,27 @@ export default function ReservationPage() {
     setStatus('sending');
 
     const formData = new FormData(event.target);
+    const payload = {
+      first_name: formData.get('first_name'),
+      last_name: formData.get('last_name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      enquiry_type: 'Booking Enquiry',
+      source_page: 'Booking enquiry page',
+      message: formData.get('message'),
+      property: formData.get('property'),
+      check_in: formData.get('check_in'),
+      check_out: formData.get('check_out'),
+      guests: formData.get('guests'),
+      nights: formData.get('nights'),
+      total: formData.get('total'),
+    };
 
     try {
-      const response = await fetch('https://formspree.io/f/xldbdwzq', {
+      const response = await fetch('/api/leads', {
         method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -98,7 +113,6 @@ export default function ReservationPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className={styles.enquiryForm}>
-              <input type="hidden" name="_subject" value={`Booking enquiry — ${reservation.property || 'Agatha Living stay'}`} />
               <input type="hidden" name="property" value={reservation.property || ''} />
               <input type="hidden" name="check_in" value={formatDate(reservation.checkIn)} />
               <input type="hidden" name="check_out" value={formatDate(reservation.checkOut)} />

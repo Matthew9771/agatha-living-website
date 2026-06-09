@@ -25,9 +25,9 @@ export default function About() {
         <div ref={addRef} className={`${styles.storyText} fade-up`}>
           <span className="section-tag">Designed Around the Stay</span>
           <h2 className="section-title">About <em>Agatha Living</em></h2>
-          <p className={styles.lead}>Agatha Living is built around calm, well-prepared stays and thoughtful property experiences from the moment a visit begins.</p>
-          <p className={styles.body}>Every detail is shaped around comfort, presentation, and fast, helpful communication, so each stay feels polished, easy, and welcoming.</p>
-          <p className={styles.body}>That same level of care carries through every part of the brand, from short stays to property services across London.</p>
+          <p className={styles.lead}>Agatha Living creates better living across London with premium short-term stays, specialist property management, and practical investment support.</p>
+          <p className={styles.body}>We help guests find calm, comfortable stay options, while also giving landlords and councils dependable solutions for housing, maintenance, and guaranteed income.</p>
+          <p className={styles.body}>From council partnerships and guaranteed rent packages to guest-ready homes, maintenance-backed property management and direct booking services, Agatha Living is built around every side of the home experience.</p>
         </div>
         <div ref={addRef} className={`${styles.storyImages} fade-up`}>
           <div className={styles.imgMain} />
@@ -43,13 +43,13 @@ export default function About() {
       <section className={styles.values}>
         <div ref={addRef} className="fade-up">
           <span className="section-tag">What Matters Most</span>
-          <h2 className="section-title">What every stay should <em>feel like</em></h2>
+          <h2 className="section-title">What every stay and partnership should <em>feel like</em></h2>
         </div>
         <div className={styles.valuesGrid}>
           {[
             { icon: '🏡', title: 'Quality First', desc: 'Every stay is prepared to hotel standards, with a strong focus on cleanliness, presentation, and comfort.' },
             { icon: '🤝', title: 'Clear & Reassuring', desc: 'Straightforward information, thoughtful details, and no surprises before or during the stay.' },
-            { icon: '⚡', title: 'Responsive Service', desc: 'Questions, arrival details, and stay support are handled quickly when they matter most.' },
+            { icon: '⚙️', title: 'Landlord & Council Care', desc: 'Guaranteed rent packages, maintenance-backed management, and compliant housing partnerships for owners and councils.' },
             { icon: '✨', title: 'Calm by Design', desc: 'Spaces are styled to feel settled, polished, and easy to relax into from the moment of arrival.' },
           ].map(v => (
             <div key={v.title} ref={addRef} className={`${styles.valueCard} fade-up`}>

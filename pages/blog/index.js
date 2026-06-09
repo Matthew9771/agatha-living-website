@@ -27,6 +27,27 @@ export const posts = [
     date: 'January 2026',
     category: 'Property Tips',
   },
+  {
+    slug: 'direct-booking-benefits',
+    title: 'Why Direct Booking Can Make a Short Stay Simpler',
+    excerpt: 'Direct booking gives guests clearer communication, fewer platform layers, and a more personal route to confirming the details that matter.',
+    date: 'April 2026',
+    category: 'Direct Booking',
+  },
+  {
+    slug: 'serviced-accommodation-landlord-checklist',
+    title: 'A Landlord Checklist Before Moving Into Serviced Accommodation',
+    excerpt: 'Before switching a property into short-stay use, landlords should check demand, setup costs, compliance, operations, and realistic revenue assumptions.',
+    date: 'May 2026',
+    category: 'Landlords',
+  },
+  {
+    slug: 'forest-hill-short-stay-guide',
+    title: 'A Short-Stay Guest Guide to Forest Hill',
+    excerpt: 'Forest Hill is calm, connected, and practical for London visitors who want good transport links without staying in the busiest parts of the city.',
+    date: 'June 2026',
+    category: 'Local Guide',
+  },
 ];
 
 export default function Blog() {

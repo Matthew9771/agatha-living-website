@@ -20,7 +20,7 @@ export default function TermsAndConditions() {
 
       <section className={styles.section}>
         <div className={styles.card}>
-          <p className={styles.updated}>Last updated: 13 May 2026</p>
+          <p className={styles.updated}>Last updated: 9 June 2026</p>
 
           <div className={styles.content}>
             <p>
@@ -46,6 +46,11 @@ export default function TermsAndConditions() {
             <p>
               Any enquiry submitted through this website does not create a booking, contract, or formal client relationship
               until confirmed separately by Agatha Living in writing.
+            </p>
+            <p>
+              When you submit an enquiry, booking request, contact form, or priority guest list form, the information you
+              provide may be stored in our website lead management database so we can respond, manage follow-up, and keep
+              appropriate business records.
             </p>
 
             <h2>4. Property and Service Information</h2>
@@ -80,7 +85,9 @@ export default function TermsAndConditions() {
 
             <h2>9. Privacy</h2>
             <p>
-              Your use of this website is also governed by our Privacy Policy, which explains how personal information is collected and used.
+              Your use of this website is also governed by our Privacy Policy, which explains how personal information is
+              collected, stored, and used. Website enquiry and lead information may be processed through Supabase and other
+              trusted service providers that help us operate the website and manage enquiries.
             </p>
 
             <h2>10. Changes to These Terms</h2>
