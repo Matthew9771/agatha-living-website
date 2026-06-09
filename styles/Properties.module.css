@@ -774,8 +774,9 @@
 }
 
 .daySelected {
-  background: rgba(201,169,110,0.18);
-  border-color: rgba(201,169,110,0.36);
+  background: #ffffff;
+  border-color: rgba(201,169,110,0.5);
+  color: var(--ink);
 }
 
 .dayCheckIn,

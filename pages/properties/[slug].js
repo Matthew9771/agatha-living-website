@@ -161,6 +161,7 @@ export default function PropertyProfile({ property }) {
     setCheckOut(dateKey);
     setAvailabilityTone('available');
     setAvailabilityMessage(`Stay selected from ${formatLongDate(checkIn)} to ${formatLongDate(dateKey)}.`);
+    setIsCalendarOpen(false);
   };
 
   const handleSaveDates = () => {
