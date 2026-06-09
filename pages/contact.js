@@ -6,6 +6,7 @@ import styles from '../styles/Contact.module.css';
 
 export default function Contact() {
   const [status, setStatus] = useState('idle');
+  const [errorMsg, setErrorMsg] = useState('');
   const addRef = useFadeUp();
 
   const handleSubmit = async (e) => {
@@ -32,7 +33,9 @@ export default function Contact() {
       setStatus('success');
       e.target.reset();
     } else {
+      const data = await res.json().catch(() => ({}));
       setStatus('error');
+      setErrorMsg(data.error || 'Unknown error');
     }
   };
 
@@ -125,7 +128,7 @@ export default function Contact() {
                   <label>Message</label>
                   <textarea name="message" rows={5} placeholder="Tell us a bit more about what you're looking for…" />
                 </div>
-                {status === 'error' && <p className={styles.errorMsg}>Something went wrong. Please try again or email us directly.</p>}
+                {status === 'error' && <p className={styles.errorMsg}>Something went wrong: {errorMsg}. Please try again or email us directly.</p>}
                 <button type="submit" className={`btn-gold ${styles.submitBtn}`} disabled={status === 'sending'}>
                   {status === 'sending' ? 'Sending…' : 'Send Enquiry'}
                 </button>
