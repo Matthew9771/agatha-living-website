@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { SITE_URL } from '../lib/config';
-import { formatLongDate, parseDateKey, toDateKey } from '../lib/utils';
+import { addDays, formatLongDate, parseDateKey, toDateKey } from '../lib/utils';
 import styles from '../styles/Payment.module.css';
 
 const PROPERTY_NAME = 'Forest Hill – Elegant South London 2-Bed';
@@ -125,7 +125,7 @@ async function fetchStripePaymentLinkAmount(paymentLinkUrl) {
   }
 }
 
-export default function ForestHillExtraNight({ additionalNight, amountDue, paymentLink }) {
+export default function ForestHillExtraNight({ additionalNight, newCheckout, amountDue, paymentLink }) {
   const hasPaymentLink = Boolean(paymentLink);
 
   return (
@@ -166,7 +166,11 @@ export default function ForestHillExtraNight({ additionalNight, amountDue, payme
             </div>
             <div>
               <dt>Additional night</dt>
-              <dd>{formatLongDate(additionalNight)}</dd>
+              <dd>Night of {formatLongDate(additionalNight)}</dd>
+            </div>
+            <div>
+              <dt>New checkout</dt>
+              <dd>{formatLongDate(newCheckout)}</dd>
             </div>
             <div className={styles.amountRow}>
               <dt>Amount due</dt>
@@ -209,11 +213,13 @@ export async function getServerSideProps({ query }) {
   const stripeAmount = queryAmount || process.env.FOREST_HILL_EXTRA_NIGHT_AMOUNT || await fetchStripePaymentLinkAmount(paymentLink);
   const parsedNight = parseDateKey(guestyNight);
   const additionalNight = parsedNight ? toDateKey(parsedNight) : '[DATE]';
+  const newCheckout = parsedNight ? toDateKey(addDays(parsedNight, 1)) : '[DATE]';
   const amountDue = stripeAmount ? formatAmount(stripeAmount) : 'Shown on Stripe checkout';
 
   return {
     props: {
       additionalNight,
+      newCheckout,
       amountDue,
       paymentLink,
     },
