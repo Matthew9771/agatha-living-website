@@ -1,6 +1,8 @@
 node_modules/
+node_modules.offloaded/
 .next/
 dist/
+.claude/
 .env
 .env.local
 .env.development.local
