@@ -122,7 +122,7 @@ export default function PropertyProfile({ property }) {
                 <p className="section-tag">Direct booking</p>
                 <h2 id="book-direct-heading" className={styles.directBookingTitle}>Book Direct with Agatha Living</h2>
                 <p className={styles.directBookingText}>
-                  Check live availability and book securely online through our Guesty direct booking portal. Your reservation goes straight to Agatha Living, with secure payment handled by Guesty.
+                  Check live availability and book securely online through our Guesty direct booking portal. Your reservation goes straight to Agatha Living, with card payments handled securely by Stripe.
                 </p>
               </div>
 
