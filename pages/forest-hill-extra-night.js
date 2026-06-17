@@ -59,7 +59,16 @@ function findAdditionalNight(events, reservationId) {
   return null;
 }
 
-async function fetchGuestyAdditionalNight(reservationId) {
+function findAdditionalNightByStayDate(events, stayDate) {
+  if (!parseDateKey(stayDate)) return null;
+
+  const reservationEvents = events.filter((event) => event.summary.toLowerCase().includes('reservation'));
+  const matchingEvent = reservationEvents.find((event) => event.start <= stayDate && stayDate < event.end);
+
+  return matchingEvent?.end || null;
+}
+
+async function fetchGuestyAdditionalNight(reservationId, stayDate) {
   const calendarUrl = process.env.FOREST_HILL_EXTRA_NIGHT_GUESTY_ICAL_URL
     || process.env.GUESTY_ICAL_URL
     || DEFAULT_GUESTY_ICAL_URL;
@@ -69,7 +78,13 @@ async function fetchGuestyAdditionalNight(reservationId) {
     if (!response.ok) return null;
 
     const calendarText = await response.text();
-    return findAdditionalNight(parseIcalEvents(calendarText), reservationId);
+    const events = parseIcalEvents(calendarText);
+
+    if (stayDate) {
+      return findAdditionalNightByStayDate(events, stayDate);
+    }
+
+    return findAdditionalNight(events, reservationId);
   } catch {
     return null;
   }
@@ -209,7 +224,8 @@ export async function getServerSideProps({ query }) {
   const queryDate = getQueryValue(query.date);
   const queryAmount = getQueryValue(query.amount);
   const reservationId = getQueryValue(query.reservation) || process.env.FOREST_HILL_EXTRA_NIGHT_RESERVATION_ID || '';
-  const guestyNight = queryDate || process.env.FOREST_HILL_EXTRA_NIGHT_DATE || await fetchGuestyAdditionalNight(reservationId);
+  const stayDate = getQueryValue(query.stayDate) || '';
+  const guestyNight = queryDate || process.env.FOREST_HILL_EXTRA_NIGHT_DATE || await fetchGuestyAdditionalNight(reservationId, stayDate);
   const stripeAmount = queryAmount || process.env.FOREST_HILL_EXTRA_NIGHT_AMOUNT || await fetchStripePaymentLinkAmount(paymentLink);
   const parsedNight = parseDateKey(guestyNight);
   const additionalNight = parsedNight ? toDateKey(parsedNight) : '[DATE]';
