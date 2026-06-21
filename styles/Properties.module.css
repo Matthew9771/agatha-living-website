@@ -125,6 +125,10 @@
   color: var(--ink);
 }
 
+.mobileBookingLabel {
+  display: none;
+}
+
 .directBookingWidget {
   width: 100%;
   min-height: 92px;
@@ -367,44 +371,53 @@
   }
 
   .propertyDetailSection {
-    padding-bottom: 440px;
+    padding-bottom: 118px;
   }
 
   .directBookingSection {
-    padding: 12px 14px 14px;
-    border-radius: 22px 22px 0 0;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    border-radius: 18px 18px 0 0;
   }
 
-  .directBookingTitle {
-    font-size: 24px;
-  }
-
-  .directBookingText {
-    font-size: 13px;
+  .directBookingIntro,
+  .directBookingCardHeader {
+    display: none;
   }
 
   .directBookingCard {
-    margin-top: 12px;
-    padding: 14px 12px;
-    border-radius: 18px;
+    display: block;
+    margin-top: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
-  .directBookingCardHeader {
-    margin-bottom: 16px;
-  }
-
-  .directBookingCardHeader strong {
-    font-size: 20px;
+  .mobileBookingLabel {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .directBookingWidget {
-    min-height: 160px;
+    min-height: 40px;
   }
 
   .directBookingWidget :global(.guesty-root-element.guesty-widget__container) {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) minmax(70px, 0.42fr) 72px;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .directBookingWidget :global(.guesty-root-element.small-size.guesty-widget__container) {
+    flex-direction: row;
   }
 
   .directBookingWidget :global(.guesty-root-element #guesty-search-widget__datepicker),
@@ -412,6 +425,39 @@
   .directBookingWidget :global(.guesty-root-element .guesty-search-submit-btn) {
     width: 100%;
     max-width: 100%;
+  }
+
+  .directBookingWidget :global(.guesty-root-element.small-size.guesty-widget__container .guesty-widget__item),
+  .directBookingWidget :global(.guesty-root-element.small-size.guesty-widget__container .guesty-widget__item .selectr-container),
+  .directBookingWidget :global(.guesty-root-element.small-size.guesty-widget__container .guesty-widget__item #guesty-search-widget__datepicker) {
+    margin: 0;
+    width: 100%;
+  }
+
+  .directBookingWidget :global(.guesty-root-element #guesty-search-widget__datepicker .__super-input),
+  .directBookingWidget :global(.guesty-root-element .guesty-search-submit-btn) {
+    height: 40px;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .directBookingWidget :global(.guesty-root-element #guesty-search-widget__datepicker .__super-input),
+  .directBookingWidget :global(.guesty-root-element #guesty-search-widget__datepicker .__super-input::placeholder),
+  .directBookingWidget :global(.guesty-root-element .selectr-selected),
+  .directBookingWidget :global(.guesty-root-element .selectr-label),
+  .directBookingWidget :global(.guesty-root-element .selectr-placeholder) {
+    color: #565a5c !important;
+    opacity: 1;
+  }
+
+  .directBookingWidget :global(.guesty-root-element .selectr-selected) {
+    padding: 9px 24px 9px 8px;
+    font-size: 12px;
+  }
+
+  .directBookingWidget :global(.guesty-root-element .guesty-search-submit-btn) {
+    min-width: 0;
+    color: var(--ink) !important;
   }
 
   .enquirySummary,

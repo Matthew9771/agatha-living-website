@@ -131,6 +131,7 @@ export default function PropertyProfile({ property }) {
                   <span>Secure online booking</span>
                   <strong>Choose your dates, guests, and complete your booking below.</strong>
                 </div>
+                <span className={styles.mobileBookingLabel}>Check dates</span>
                 <div className={styles.directBookingWidget}>
                   <GuestyBookingWidget />
                 </div>
