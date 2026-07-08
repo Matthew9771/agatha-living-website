@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { Analytics } from '@vercel/analytics/next';
 import Layout from '../components/Layout';
 import { SITE_URL } from '../lib/config';
 import '../styles/globals.css';
@@ -30,6 +31,7 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <Analytics />
     </>
   );
 }
