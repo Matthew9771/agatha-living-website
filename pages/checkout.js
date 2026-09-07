@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { STRIPE_PUBLISHABLE_KEY, DEPOSIT_PERCENT } from '../lib/config';
 import { formatLongDate, formatCurrency } from '../lib/utils';
-import styles from '../styles/Checkout.module.css';
+import styles from '../styles/Payment.module.css';
 
 let stripePromise;
 function getStripe() {
