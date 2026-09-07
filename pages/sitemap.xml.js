@@ -1,5 +1,6 @@
 import { SITE_URL } from '../lib/config';
 import { SERVICES } from '../lib/services';
+import { PROPERTIES } from '../lib/properties';
 import { posts } from './blog/index';
 
 const pages = [
@@ -25,7 +26,12 @@ const servicePages = SERVICES.map(service => ({
 }));
 
 function generateSitemap() {
-  const allPages = [...pages, ...servicePages, ...blogPages];
+  const propertyPages = PROPERTIES.map(property => ({
+    path: `/properties/${property.slug}`,
+    priority: '0.9',
+    changefreq: 'weekly',
+  }));
+  const allPages = [...pages, ...propertyPages, ...servicePages, ...blogPages];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allPages.map(({ path, priority, changefreq }) => `  <url>

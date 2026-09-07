@@ -26,7 +26,7 @@ function PropertyCardGallery({ images, name }) {
       <div className={styles.cardGallery} style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
         {images.map((image, index) => (
           <div key={`${name}-${index}`} className={styles.cardGalleryItem}>
-            <img src={image} alt={`${name} photo ${index + 1}`} className={styles.cardGalleryImage} />
+            <img src={image} alt={`${name} photo ${index + 1}`} className={styles.cardGalleryImage} loading="lazy" />
           </div>
         ))}
       </div>
@@ -43,7 +43,7 @@ export default function Properties() {
         <title>Properties | Agatha Living</title>
         <meta
           name="description"
-          content="Browse serviced accommodation in Forest Hill, London. View property profiles, amenities, and book direct with Agatha Living."
+          content="Explore Agatha Living stays in Forest Hill and on Thornbury Road, South London. View photos, amenities, and booking options for all three properties."
         />
       </Head>
 
@@ -68,7 +68,7 @@ export default function Properties() {
             <article key={property.slug} ref={addRef} className={`${styles.card} fade-up`}>
               <PropertyCardGallery images={property.images ?? [property.image]} name={property.name} />
               <span className={`${styles.cardTag} ${property.available ? styles.available : styles.unavailable}`}>
-                {property.available ? 'Available now' : 'Currently unavailable'}
+                {property.available ? 'Check availability' : 'Currently unavailable'}
               </span>
               <div className={styles.cardBody}>
                 <h3 className={styles.cardName}>{property.name}</h3>

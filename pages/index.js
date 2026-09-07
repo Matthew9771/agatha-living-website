@@ -92,7 +92,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.propNoteBlock}>
-            <h3 className={styles.propNoteTitle}>Two more curated units are joining our <span>London stay collection</span> soon.</h3>
+            <h3 className={styles.propNoteTitle}>Now welcoming guests at 70 Thornbury Road and The Coach House — discover our <span>three London stays.</span></h3>
             <Link href="/properties" className="btn-gold">View properties</Link>
           </div>
         </div>

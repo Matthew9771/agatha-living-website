@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { AIRBNB_FOREST_HILL_URL, BOOKING_FOREST_HILL_URL, SITE_URL } from '../lib/config';
+import { BOOKING_FOREST_HILL_URL, SITE_URL } from '../lib/config';
+import { PROPERTIES } from '../lib/properties';
 import styles from '../styles/Links.module.css';
 
 const primaryLinks = [
   {
-    label: 'Book the Forest Hill stay',
+    label: 'Explore our London stays',
     text: 'View availability and direct enquiry options',
     href: '/properties',
     type: 'internal',
@@ -25,12 +26,12 @@ const primaryLinks = [
 ];
 
 const bookingLinks = [
+  ...PROPERTIES.map(property => ({
+    label: `${property.name} on Airbnb`,
+    href: property.externalLinks.find(link => link.label === 'Airbnb').href,
+  })),
   {
-    label: 'View on Airbnb',
-    href: AIRBNB_FOREST_HILL_URL,
-  },
-  {
-    label: 'View on Booking.com',
+    label: 'Forest Hill on Booking.com',
     href: BOOKING_FOREST_HILL_URL,
   },
 ];
@@ -105,7 +106,7 @@ export default function Links() {
             </div>
           </div>
 
-          <p className={styles.footerNote}>Forest Hill, London SE23</p>
+          <p className={styles.footerNote}>Forest Hill, SE23 &amp; Thornbury Road, SW2 — London</p>
         </div>
       </section>
     </>

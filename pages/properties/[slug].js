@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
-import GuestyBookingWidget from '../../components/GuestyBookingWidget';
 import { PROPERTIES, getPropertyBySlug } from '../../lib/properties';
 import styles from '../../styles/Properties.module.css';
 
@@ -19,7 +18,7 @@ export default function PropertyProfile({ property }) {
         <title>{`${property.name} | Agatha Living`}</title>
         <meta
           name="description"
-          content={`Discover ${property.name} in Forest Hill. View the property profile, amenity details, and check availability for direct booking.`}
+          content={`Discover ${property.name} in ${property.area}. View photos, amenities, and booking options.`}
         />
       </Head>
 
@@ -33,7 +32,8 @@ export default function PropertyProfile({ property }) {
           <div className={styles.propertyMeta}>
             <span>{property.type}</span>
             <span>{property.area}</span>
-            <span>{property.zone}</span>
+            {property.zone && <span>{property.zone}</span>}
+            <span>Up to {property.maxGuests} guests</span>
           </div>
         </div>
       </div>
@@ -119,21 +119,23 @@ export default function PropertyProfile({ property }) {
 
             <section id="availability" className={styles.directBookingSection} aria-labelledby="book-direct-heading">
               <div className={styles.directBookingIntro}>
-                <p className="section-tag">Direct booking</p>
-                <h2 id="book-direct-heading" className={styles.directBookingTitle}>Book Direct with Agatha Living</h2>
+                <p className="section-tag">Availability &amp; booking</p>
+                <h2 id="book-direct-heading" className={styles.directBookingTitle}>Book your stay</h2>
                 <p className={styles.directBookingText}>
-                  Check live availability and book securely online through our Guesty direct booking portal. Your reservation goes straight to Agatha Living, with card payments handled securely by Stripe.
+                  Check current prices and availability on our booking platforms, or contact Agatha Living with an enquiry about this property.
                 </p>
               </div>
 
               <div className={styles.directBookingCard}>
                 <div className={styles.directBookingCardHeader}>
                   <span>Secure online booking</span>
-                  <strong>Choose your dates, guests, and complete your booking below.</strong>
+                  <strong>Choose your dates and complete your booking on the listing.</strong>
                 </div>
-                <span className={styles.mobileBookingLabel}>Check dates</span>
-                <div className={styles.directBookingWidget}>
-                  <GuestyBookingWidget />
+                <div className={styles.cardActions}>
+                  {property.externalLinks.map(link => (
+                    <a key={link.href} href={link.href} className="btn-gold" target="_blank" rel="noopener noreferrer">Book on {link.label}</a>
+                  ))}
+                  <Link href="/contact" className="btn-outline-dark">Enquire about this stay</Link>
                 </div>
               </div>
             </section>
