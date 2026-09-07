@@ -34,6 +34,7 @@ export default function PropertyProfile({ property }) {
             <span>{property.area}</span>
             {property.zone && <span>{property.zone}</span>}
             <span>Up to {property.maxGuests} guests</span>
+            <span>Check-in from {property.checkInFrom}</span>
           </div>
         </div>
       </div>
@@ -122,18 +123,19 @@ export default function PropertyProfile({ property }) {
                 <p className="section-tag">Availability &amp; booking</p>
                 <h2 id="book-direct-heading" className={styles.directBookingTitle}>Book your stay</h2>
                 <p className={styles.directBookingText}>
-                  Check current prices and availability on our booking platforms, or contact Agatha Living with an enquiry about this property.
+                  Check live availability and book direct with Agatha Living through Smoobu, or choose one of our booking platforms.
                 </p>
               </div>
 
               <div className={styles.directBookingCard}>
                 <div className={styles.directBookingCardHeader}>
                   <span>Secure online booking</span>
-                  <strong>Choose your dates and complete your booking on the listing.</strong>
+                  <strong>Choose your dates and book this property directly.</strong>
                 </div>
                 <div className={styles.cardActions}>
+                  <Link href={`/properties/${property.slug}/availability`} className="btn-gold">Check availability &amp; book direct</Link>
                   {property.externalLinks.map(link => (
-                    <a key={link.href} href={link.href} className="btn-gold" target="_blank" rel="noopener noreferrer">Book on {link.label}</a>
+                    <a key={link.href} href={link.href} className="btn-outline-dark" target="_blank" rel="noopener noreferrer">Book on {link.label}</a>
                   ))}
                   <Link href="/contact" className="btn-outline-dark">Enquire about this stay</Link>
                 </div>

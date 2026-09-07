@@ -82,7 +82,7 @@ export default function Properties() {
                   <span className={styles.cardPrice}>{property.price}</span>
                   <div className={styles.cardActions}>
                     <Link href={`/properties/${property.slug}`} className="btn-gold">View profile</Link>
-                    <Link href={`/properties/${property.slug}#availability`} className="btn-outline-dark">Check dates</Link>
+                    <Link href={`/properties/${property.slug}/availability`} className="btn-outline-dark">Check availability</Link>
                   </div>
                 </div>
               </div>

@@ -75,7 +75,7 @@
 .propHeader { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 20px; }
 .propHeaderSub { color: rgba(255,255,255,0.72); font-size: 16px; line-height: 1.6; margin-top: 14px; font-weight: 500; }
 .propCard { display: grid; grid-template-columns: 1.1fr 1fr; max-width: 1060px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; background: rgba(255,255,255,0.88); box-shadow: 0 28px 90px rgba(44,33,20,0.12); }
-.propImg { background: url('/foresthill.jpg') center/cover no-repeat; min-height: 420px; position: relative; }
+.propImg { background: url('/greystead-road-1.jpg') center/cover no-repeat; min-height: 420px; position: relative; }
 .propTag { position: absolute; top: 18px; left: 18px; background: rgba(255,255,255,0.88); color: var(--ink); font-size: 10px; letter-spacing: -0.01em; padding: 6px 12px; font-weight: 700; border-radius: 999px; box-shadow: 0 12px 30px rgba(44,33,20,0.12); }
 .propNoteTitle {
   color: var(--white);
