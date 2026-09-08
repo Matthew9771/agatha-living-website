@@ -172,7 +172,7 @@ export default function Availability({ property }) {
           <div className={styles.summary}>
             <span className="section-tag">Your Agatha Living stay</span>
             <h1 id="stay-heading">{property.name}</h1>
-            <p className={styles.address}>{property.address}</p>
+            <p className={styles.address}>{property.area}</p>
             <div className={styles.facts}>
               <span>{property.type}</span>
               <span>Up to {property.maxGuests} guests</span>

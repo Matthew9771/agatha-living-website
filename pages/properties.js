@@ -76,7 +76,7 @@ export default function Properties() {
               </span>
               <div className={styles.cardBody}>
                 <h3 className={styles.cardName}>{property.name}</h3>
-                <p className={styles.cardAddress}>📍 {property.address}</p>
+                <p className={styles.cardAddress}>📍 {property.area}</p>
                 <div className={styles.cardFeatures}>
                   {property.features.map(feature => (
                     <span key={feature} className={styles.cardFeature}>{feature}</span>

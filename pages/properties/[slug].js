@@ -30,7 +30,7 @@ export default function PropertyProfile({ property }) {
           <Link href="/properties" className={styles.propertyBackLink}>← Back to listings</Link>
           <span className="section-tag">Property profile</span>
           <h1 className={styles.propertyTitle}>{property.name}</h1>
-          <p className={styles.propertySubtitle}>{property.address}</p>
+          <p className={styles.propertySubtitle}>{property.area}</p>
           <div className={styles.propertyMeta}>
             <span>{property.type}</span>
             <span>{property.area}</span>
