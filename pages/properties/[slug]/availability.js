@@ -8,13 +8,69 @@ import styles from '../../../styles/Availability.module.css';
 function PropertyGallery({ property }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const images = property.images?.length ? property.images : [property.image];
+  const carouselRef = useRef(null);
+  const dragRef = useRef(null);
+
+  const showImage = (index) => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+    const target = Math.max(0, Math.min(images.length - 1, index));
+    carousel.scrollTo({ left: target * carousel.clientWidth, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+  };
+
+  const finishDrag = (event) => {
+    if (!dragRef.current) return;
+    dragRef.current = null;
+    const carousel = event.currentTarget;
+    carousel.style.scrollSnapType = '';
+    carousel.style.cursor = '';
+    if (carousel.hasPointerCapture(event.pointerId)) carousel.releasePointerCapture(event.pointerId);
+    showImage(Math.round(carousel.scrollLeft / carousel.clientWidth));
+  };
 
   return (
     <div className={styles.gallery} aria-label={`${property.name} photos`}>
       <div className={styles.mainPhoto}>
-        <img src={images[activeIndex]} alt={`${property.name} — property photo ${activeIndex + 1}`} />
-        <span className={styles.photoCount}>{activeIndex + 1} / {images.length}</span>
+        <div
+          ref={carouselRef}
+          className={styles.photoCarousel}
+          tabIndex={0}
+          role="region"
+          aria-label={`${property.name} photo carousel. Swipe or use left and right arrow keys.`}
+          onScroll={event => {
+            const carousel = event.currentTarget;
+            if (carousel.clientWidth) setActiveIndex(Math.max(0, Math.min(images.length - 1, Math.round(carousel.scrollLeft / carousel.clientWidth))));
+          }}
+          onKeyDown={event => {
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+              event.preventDefault();
+              showImage(activeIndex + (event.key === 'ArrowRight' ? 1 : -1));
+            }
+          }}
+          onPointerDown={event => {
+            if (event.pointerType !== 'mouse' || event.button !== 0) return;
+            dragRef.current = { startX: event.clientX, scrollLeft: event.currentTarget.scrollLeft };
+            event.currentTarget.style.scrollSnapType = 'none';
+            event.currentTarget.style.cursor = 'grabbing';
+            event.currentTarget.setPointerCapture(event.pointerId);
+          }}
+          onPointerMove={event => {
+            if (!dragRef.current) return;
+            event.currentTarget.scrollLeft = dragRef.current.scrollLeft - (event.clientX - dragRef.current.startX);
+          }}
+          onPointerUp={finishDrag}
+          onPointerCancel={finishDrag}
+          onLostPointerCapture={finishDrag}
+        >
+          {images.map((src, index) => (
+            <div key={`${src}-${index}`} className={styles.photoSlide}>
+              <img src={src} alt={`${property.name} — property photo ${index + 1}`} draggable={false} loading={index === 0 ? 'eager' : 'lazy'} />
+            </div>
+          ))}
+        </div>
+        <span className={styles.photoCount} aria-live="polite">{activeIndex + 1} / {images.length}</span>
       </div>
+      {images.length > 1 && <p className={styles.swipeHint}>Swipe or drag to browse photos</p>}
       {images.length > 1 && (
         <div className={styles.thumbnails}>
           {images.map((src, index) => (
@@ -22,7 +78,7 @@ function PropertyGallery({ property }) {
               key={`${src}-${index}`}
               type="button"
               className={`${styles.thumbnail} ${index === activeIndex ? styles.selected : ''}`}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => showImage(index)}
               aria-label={`View ${property.name} photo ${index + 1}`}
               aria-pressed={index === activeIndex}
             >

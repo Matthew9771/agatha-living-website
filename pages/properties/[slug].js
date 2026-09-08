@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSwipeGallery } from '../../hooks/useSwipeGallery';
 import { PROPERTIES, getPropertyBySlug } from '../../lib/properties';
 import styles from '../../styles/Properties.module.css';
 
@@ -9,6 +10,7 @@ export default function PropertyProfile({ property }) {
 
   const galleryImages = Array.isArray(property.images) && property.images.length ? property.images : [property.image];
   const hasMultipleImages = galleryImages.length > 1;
+  const swipeHandlers = useSwipeGallery(galleryImages.length, setActiveGalleryIndex);
   const showPreviousImage = () => setActiveGalleryIndex(i => (i - 1 + galleryImages.length) % galleryImages.length);
   const showNextImage = () => setActiveGalleryIndex(i => (i + 1) % galleryImages.length);
 
@@ -44,7 +46,7 @@ export default function PropertyProfile({ property }) {
           <p className="section-tag">Photo tour</p>
           <h2 className="section-title">See the property in detail</h2>
           <div className={styles.gallerySingle}>
-            <div className={styles.galleryItemSingle}>
+            <div className={styles.galleryItemSingle} {...swipeHandlers}>
               <button
                 type="button"
                 className={styles.galleryImageButton}
@@ -55,6 +57,7 @@ export default function PropertyProfile({ property }) {
                   src={galleryImages[activeGalleryIndex]}
                   alt={`${property.name} image ${activeGalleryIndex + 1}`}
                   className={styles.galleryImage}
+                  draggable={false}
                 />
               </button>
 
@@ -75,10 +78,12 @@ export default function PropertyProfile({ property }) {
                     className={`${styles.galleryPagerDot} ${index === activeGalleryIndex ? styles.galleryPagerDotActive : ''}`}
                     onClick={() => setActiveGalleryIndex(index)}
                     aria-label={`View photo ${index + 1}`}
+                    aria-pressed={index === activeGalleryIndex}
                   />
                 ))}
               </div>
             ) : null}
+            {hasMultipleImages && <p className={styles.swipeHint}>Swipe left or right to explore the photos</p>}
           </div>
         </div>
         <div className={styles.propertySplit}>
@@ -117,6 +122,16 @@ export default function PropertyProfile({ property }) {
                 ))}
               </div>
             </div>
+
+            <section className={styles.detailSection} aria-labelledby="reviews-heading">
+              <h2 id="reviews-heading">Guest reviews</h2>
+              <p>Read guest reviews on our booking platforms.</p>
+              <div className={styles.cardActions}>
+                {property.externalLinks.map(link => (
+                  <a key={link.href} href={link.href} className="btn-outline-dark" target="_blank" rel="noopener noreferrer">Read reviews on {link.label}</a>
+                ))}
+              </div>
+            </section>
 
             <section id="availability" className={styles.directBookingSection} aria-labelledby="book-direct-heading">
               <div className={styles.directBookingIntro}>

@@ -2,8 +2,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { SERVICES, getServiceBySlug } from '../../lib/services';
 import styles from '../../styles/Services.module.css';
+import StartGrowService from '../../components/StartGrowService';
+import ServiceEnquiryForm from '../../components/ServiceEnquiryForm';
 
 export default function ServiceDetail({ service }) {
+  if (service.comingSoon) return <StartGrowService />;
   return (
     <>
       <Head>
@@ -18,6 +21,7 @@ export default function ServiceDetail({ service }) {
           <Link href="/services" className={styles.detailBackLink}>← Back to services</Link>
           <span className="section-tag">Service detail</span>
           <h1>{service.title}</h1>
+          {service.subtitle && <p>{service.subtitle}</p>}
         </div>
       </div>
 
@@ -25,9 +29,9 @@ export default function ServiceDetail({ service }) {
         <div className={styles.detailIntroContent}>
           <span className={styles.serviceNum}>{service.num}</span>
           <div className={styles.serviceIcon}>{service.icon}</div>
-          <p className={styles.detailLead}>{service.detailIntro}</p>
+          <p className={styles.detailLead}>{service.slug === 'property-management' ? service.desc : service.detailIntro}</p>
           <div className={styles.detailActions}>
-            <Link href="/contact" className="btn-gold">Enquire now</Link>
+            <Link href={service.slug === 'property-management' ? '#management-assessment' : '/contact'} className="btn-gold">{service.cta || 'Enquire now'}</Link>
             {service.slug === 'short-term-stays' ? (
               <Link href="/properties" className="btn-outline-dark">View properties</Link>
             ) : (
@@ -71,8 +75,9 @@ export default function ServiceDetail({ service }) {
         <span className="section-tag">Enquire</span>
         <h2 className="section-title">Want to discuss<br /><em>{service.title.toLowerCase()}?</em></h2>
         <p className="section-sub">Send a short enquiry and Agatha Living can respond with the most relevant next steps.</p>
-        <Link href="/contact" className="btn-gold">Enquire now</Link>
+        <Link href={service.slug === 'property-management' ? '#management-assessment' : '/contact'} className="btn-gold">{service.cta || 'Enquire now'}</Link>
       </section>
+      {service.slug === 'property-management' && <ServiceEnquiryForm kind="management" id="management-assessment" />}
     </>
   );
 }

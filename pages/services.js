@@ -37,13 +37,15 @@ export default function Services() {
           <div ref={addRef} className={`${styles.serviceContent} fade-up`}>
             <span className={styles.serviceNum}>{s.num}</span>
             <div className={styles.serviceIcon}>{s.icon}</div>
+            {s.comingSoon && <span className={styles.comingSoonBadge}>Coming Soon</span>}
             <h2 className="section-title">{s.title}</h2>
+            {s.subtitle && <h3>{s.subtitle}</h3>}
             <p className={styles.serviceDesc}>{s.desc}</p>
             <ul className={styles.featureList}>
               {s.features.map(f => <li key={f}><span className={styles.tick}>✓</span>{f}</li>)}
             </ul>
-            <Link href={`/services/${s.slug}`} className={styles.learnMoreButton}>
-              Learn More
+            <Link href={`/services/${s.slug}${s.slug === 'property-management' ? '#management-assessment' : ''}`} className={styles.learnMoreButton}>
+              {s.cta || 'Learn More'}
               <span>→</span>
             </Link>
           </div>

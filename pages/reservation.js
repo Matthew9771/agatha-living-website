@@ -5,7 +5,7 @@ export default function ReservationRedirect() {
 export function getServerSideProps() {
   return {
     redirect: {
-      destination: '/properties/greystead-road#availability',
+      destination: '/properties/forest-hill-skyline#availability',
       permanent: false,
     },
   };

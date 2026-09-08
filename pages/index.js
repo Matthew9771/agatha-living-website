@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
+import { SERVICES } from '../lib/services';
 import { useFadeUp } from '../hooks/useFadeUp';
 import styles from '../styles/Home.module.css';
 
@@ -50,16 +51,15 @@ export default function Home() {
           <p ref={addRef} className={`section-sub fade-up`}>Explore short stays, hosting support, and property guidance designed around comfort, clarity, and convenience.</p>
         </div>
         <div className={styles.servicesGrid}>
-          {[
-            { num: '01', title: 'Short-Term Stays', desc: 'Fully furnished, hotel-quality apartments available for business travel, relocations, and easy leisure stays.', link: '/services/short-term-stays' },
-            { num: '02', title: 'Property Management', desc: 'A hands-off hosting service for owners who want guest messaging, cleaning, maintenance, and pricing handled smoothly.', link: '/services/property-management' },
-            { num: '03', title: 'Investor Support', desc: 'Practical support for landlords and investors exploring serviced accommodation, rent-to-rent, and short-term rental opportunities across London.', link: '/services/investor-support' },
-          ].map(s => (
+          {SERVICES.map(s => (
             <div key={s.num} ref={addRef} className={`${styles.serviceCard} fade-up`}>
               <span className={styles.serviceNum}>{s.num}</span>
+              <span aria-hidden="true" className={styles.serviceIcon}>{s.icon}</span>
+              {s.comingSoon && <span className={styles.comingSoonBadge}>Coming Soon</span>}
               <h3 className={styles.serviceName}>{s.title}</h3>
               <p className={styles.serviceDesc}>{s.desc}</p>
-              <Link href={s.link} className={styles.serviceLink}>Learn More →</Link>
+              <ul className={styles.serviceFeatures}>{s.features.map(feature => <li key={feature}><span aria-hidden="true">✓</span> {feature}</li>)}</ul>
+              <Link href={`/services/${s.slug}${s.slug === 'property-management' ? '#management-assessment' : ''}`} className={styles.serviceLink}>{s.cta || 'Learn More'} →</Link>
             </div>
           ))}
         </div>
@@ -80,11 +80,11 @@ export default function Home() {
               <span className={styles.propTag}>Curated stay</span>
             </div>
             <div className={styles.propInfo}>
-              <h3>Greystead Road</h3>
-              <p className={styles.propAddress}>Greystead Road, Forest Hill, London SE23</p>
+              <h3>London Skyline Views | PS5 &amp; Free Parking, 2 BR</h3>
+              <p className={styles.propAddress}>Forest Hill, London SE23</p>
               <div className={styles.propFeatures}>
                 <div className={styles.propFeature}><span>🏡</span> Fully Serviced Accommodation</div>
-                <div className={styles.propFeature}><span>📍</span> Forest Hill, SE23 — Zone 3</div>
+                <div className={styles.propFeature}><span>📍</span> Forest Hill, SE23, Zone 3</div>
                 <div className={styles.propFeature}><span>✨</span> Professionally Cleaned &amp; Managed</div>
                 <div className={styles.propFeature}><span>📅</span> Flexible Short-Term Bookings</div>
               </div>
@@ -92,7 +92,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.propNoteBlock}>
-            <h3 className={styles.propNoteTitle}>Now welcoming guests at 70 Thornbury Road and The Coach House — discover our <span>three London stays.</span></h3>
+            <h3 className={styles.propNoteTitle}>Now welcoming guests at our cinema home and private coach house. Discover our <span>three London stays.</span></h3>
             <Link href="/properties" className="btn-gold">View properties</Link>
           </div>
         </div>

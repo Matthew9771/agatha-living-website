@@ -23,6 +23,11 @@
 }
 
 .gallery { min-width: 0; }
+.photoCarousel { display: flex; width: 100%; height: 100%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; cursor: grab; touch-action: auto; }
+.photoCarousel::-webkit-scrollbar { display: none; }
+.photoCarousel:focus-visible { outline: 3px solid var(--gold-dark); outline-offset: -4px; }
+.photoSlide { flex: 0 0 100%; min-width: 0; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; user-select: none; }
+.swipeHint { margin-top: 10px; font-size: 13px; color: var(--mid); }
 
 .mainPhoto {
   position: relative;
@@ -36,6 +41,7 @@
 .mainPhoto img { display: block; width: 100%; height: 100%; object-fit: contain; }
 
 .photoCount {
+  pointer-events: none;
   position: absolute;
   right: 16px;
   bottom: 16px;

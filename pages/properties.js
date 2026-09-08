@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useFadeUp } from '../hooks/useFadeUp';
 import { PROPERTIES } from '../lib/properties';
+import { useSwipeGallery } from '../hooks/useSwipeGallery';
 import styles from '../styles/Properties.module.css';
 
-function PropertyCardGallery({ images, name }) {
+function PropertyCardGallery({ images, name, slug }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const imageCount = images.length;
+  const swipeHandlers = useSwipeGallery(imageCount, setActiveIndex);
 
   const showPrevious = () => {
     setActiveIndex(current => (current - 1 + imageCount) % imageCount);
@@ -18,18 +20,20 @@ function PropertyCardGallery({ images, name }) {
   };
 
   return (
-    <div className={styles.cardImg}>
+    <div className={styles.cardImg} {...swipeHandlers}>
       <div className={styles.cardGalleryNav}>
         <button type="button" className={styles.cardGalleryButton} onClick={showPrevious} aria-label="Previous image">‹</button>
         <button type="button" className={styles.cardGalleryButton} onClick={showNext} aria-label="Next image">›</button>
       </div>
+      <Link href={`/properties/${slug}`} aria-label={`View ${name}`} className={styles.cardGalleryLink}>
       <div className={styles.cardGallery} style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
         {images.map((image, index) => (
           <div key={`${name}-${index}`} className={styles.cardGalleryItem}>
-            <img src={image} alt={`${name} photo ${index + 1}`} className={styles.cardGalleryImage} loading="lazy" />
+            <img src={image} alt={`${name} photo ${index + 1}`} className={styles.cardGalleryImage} loading="lazy" draggable={false} />
           </div>
         ))}
       </div>
+      </Link>
     </div>
   );
 }
@@ -43,7 +47,7 @@ export default function Properties() {
         <title>Properties | Agatha Living</title>
         <meta
           name="description"
-          content="Explore Agatha Living stays in Forest Hill and on Thornbury Road, South London. View photos, amenities, and booking options for all three properties."
+          content="Explore Agatha Living stays in Forest Hill and South London. View photos, amenities, and booking options for all three properties."
         />
       </Head>
 
@@ -66,7 +70,7 @@ export default function Properties() {
         <div className={styles.grid}>
           {PROPERTIES.map(property => (
             <article key={property.slug} ref={addRef} className={`${styles.card} fade-up`}>
-              <PropertyCardGallery images={property.images ?? [property.image]} name={property.name} />
+              <PropertyCardGallery images={property.images ?? [property.image]} name={property.name} slug={property.slug} />
               <span className={`${styles.cardTag} ${property.available ? styles.available : styles.unavailable}`}>
                 {property.available ? 'Check availability' : 'Currently unavailable'}
               </span>

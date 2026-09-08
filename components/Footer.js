@@ -7,14 +7,14 @@ export default function Footer() {
       <div className={styles.top}>
         <div className={styles.brand}>
           <Link href="/" className={styles.logo}>Agatha <span>Living</span></Link>
-          <p>Premium serviced accommodation and real estate services — built on quality, driven by care.</p>
+          <p>Premium serviced accommodation and property management. Built on quality, driven by care.</p>
         </div>
         <div className={styles.col}>
           <h5>Services</h5>
           <ul>
-            <li><Link href="/services">Short-Term Stays</Link></li>
-            <li><Link href="/services">Property Management</Link></li>
-            <li><Link href="/services">Real Estate</Link></li>
+            <li><Link href="/services/short-term-stays">Short-Term Stays</Link></li>
+            <li><Link href="/services/property-management">Property Management</Link></li>
+            <li><Link href="/services/start-grow-sa-business">Start &amp; Grow Your SA Business (Coming Soon)</Link></li>
           </ul>
         </div>
         <div className={styles.col}>

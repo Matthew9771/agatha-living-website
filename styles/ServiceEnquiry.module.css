@@ -1,0 +1,18 @@
+.section { padding: 64px 80px; background: var(--bg); scroll-margin-top: 110px; }
+.card { max-width: 1000px; margin: 0 auto; padding: 42px; border: 1px solid var(--border); border-radius: 28px; background: #fff; box-shadow: var(--shadow); }
+.card h2 { font-size: clamp(28px, 4vw, 42px); margin-bottom: 28px; }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; min-width: 0; padding: 0; border: 0; }
+.fields > div { min-width: 0; }
+.fields input, .fields select, .fields textarea { font-family: inherit; font-size: 16px; }
+.fields :focus-visible { outline: 2px solid var(--sage-dark); outline-offset: 4px; }
+.fields:disabled { opacity: 0.65; }
+.fullWidth, .choices { grid-column: 1 / -1; }
+.choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; border: 1px solid var(--border); border-radius: 18px; padding: 18px; min-width: 0; }
+.choices legend { font-size: 14px; padding: 0 6px; font-weight: 600; }
+.choices label { display: flex; align-items: flex-start; gap: 10px; color: var(--mid); font-size: 14px; cursor: pointer; }
+.choices input { margin-top: 4px; width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--sage-dark); }
+.note { font-size: 14px; color: var(--mid); line-height: 1.7; }
+.success { padding: 24px; background: var(--bg); border-radius: 18px; line-height: 1.8; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 900px) { .section { padding: 48px 24px; } .card { padding: 30px 24px; } }
+@media (max-width: 640px) { .section { padding: 36px 18px; } .card { padding: 24px 18px; border-radius: 22px; } .fields, .choices { grid-template-columns: minmax(0, 1fr); } }

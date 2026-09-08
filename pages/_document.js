@@ -12,10 +12,8 @@ const jsonLd = {
   email: 'support@agathaliving.co.uk',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '62 Greystead Road',
     addressLocality: 'Forest Hill',
     addressRegion: 'London',
-    postalCode: 'SE23 3SD',
     addressCountry: 'GB',
   },
   areaServed: 'London',

@@ -91,7 +91,7 @@ export default function CheckoutPage() {
   const returnedClientSecret = getQueryValue(query.payment_intent_client_secret);
 
   const booking = useMemo(() => ({
-    property: getQueryValue(query.property, 'Greystead Road'),
+    property: getQueryValue(query.property, 'Forest Hill stay'),
     checkIn: getQueryValue(query.checkIn),
     checkOut: getQueryValue(query.checkOut),
     guests: getQueryValue(query.guests, '2'),

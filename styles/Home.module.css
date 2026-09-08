@@ -52,6 +52,7 @@
 .servicesIntro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 72px; }
 .servicesGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .serviceCard {
+  display: flex; flex-direction: column;
   background: rgba(255,255,255,0.72); padding: 42px 34px; border: 1px solid rgba(16,17,20,0.06);
   transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; border-radius: 30px; box-shadow: 0 18px 55px rgba(44,33,20,0.05);
 }
@@ -61,6 +62,11 @@
 .serviceDesc { font-size: 16px; color: var(--mid); line-height: 1.75; margin-bottom: 28px; }
 .serviceLink { font-size: 15px; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: gap 0.2s, color 0.2s; font-weight: 600; }
 .serviceLink:hover { gap: 14px; color: var(--gold); }
+.serviceFeatures { list-style: none; display: grid; gap: 10px; margin-bottom: 24px; color: var(--mid); font-size: 14px; line-height: 1.6; }
+.serviceFeatures span { color: var(--gold-dark); }
+.serviceIcon { font-size: 28px; margin-bottom: 16px; }
+.comingSoonBadge { align-self: flex-start; padding: 7px 12px; border-radius: 999px; background: #f3ead9; color: #51402b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+.serviceCard .serviceLink { margin-top: auto; }
 
 /* PROPERTY */
 .propertySection {
@@ -75,7 +81,7 @@
 .propHeader { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 20px; }
 .propHeaderSub { color: rgba(255,255,255,0.72); font-size: 16px; line-height: 1.6; margin-top: 14px; font-weight: 500; }
 .propCard { display: grid; grid-template-columns: 1.1fr 1fr; max-width: 1060px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; background: rgba(255,255,255,0.88); box-shadow: 0 28px 90px rgba(44,33,20,0.12); }
-.propImg { background: url('/greystead-road-1.jpg') center/cover no-repeat; min-height: 420px; position: relative; }
+.propImg { background: url('/forest-hill-1.jpg') center/cover no-repeat; min-height: 420px; position: relative; }
 .propTag { position: absolute; top: 18px; left: 18px; background: rgba(255,255,255,0.88); color: var(--ink); font-size: 10px; letter-spacing: -0.01em; padding: 6px 12px; font-weight: 700; border-radius: 999px; box-shadow: 0 12px 30px rgba(44,33,20,0.12); }
 .propNoteTitle {
   color: var(--white);

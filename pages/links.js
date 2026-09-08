@@ -106,7 +106,7 @@ export default function Links() {
             </div>
           </div>
 
-          <p className={styles.footerNote}>Forest Hill, SE23 &amp; Thornbury Road, SW2 — London</p>
+          <p className={styles.footerNote}>Forest Hill, SE23 &amp; South London, SW2 — London</p>
         </div>
       </section>
     </>
